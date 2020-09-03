@@ -9,7 +9,7 @@ import io.reactivex.Single
 class PlaceOnlineDataSource :
     AbstractService<PlaceApiRetrofitService>(PlaceApiRetrofitService::class.java), PlaceDataSource {
 
-    override fun getPlaces(): Single<List<PlaceListEntity>> {
+    override fun getPlaces(): Single<PlaceListEntity> {
         return service.getPlaces()
     }
 

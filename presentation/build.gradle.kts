@@ -2,6 +2,7 @@ plugins {
     id(BuildPlugins.androidApplication)
     id(BuildPlugins.kotlinAndroid)
     id(BuildPlugins.kotlinAndroidExtensions)
+    id(BuildPlugins.kaptPlugin)
 }
 
 android {
@@ -28,11 +29,24 @@ android {
 
 
 dependencies {
+    implementation(project(mapOf("path" to ":data")))
+    api(project(mapOf("path" to ":domain")))
+
     implementation(Libraries.kotlinStdLib)
     implementation(Libraries.appCompat)
     implementation(Libraries.ktxCore)
     implementation(Libraries.constraintLayout)
     implementation(Libraries.material)
+    implementation(Libraries.lifecycleLiveData)
+    implementation(Libraries.lifecycleViewModel)
+
+    implementation(RXLibraries.rxAndroid)
+    implementation(RXLibraries.rxJava)
+
+    implementation(DaggerLib.dagger)
+    implementation(DaggerLib.daggerSupport)
+    kapt(DaggerLib.daggerCompiler)
+    kapt(DaggerLib.daggerProcessor)
 
     testImplementation(TestLibraries.junit4)
     androidTestImplementation(TestLibraries.testRunner)

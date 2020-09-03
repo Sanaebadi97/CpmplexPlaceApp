@@ -3,10 +3,10 @@ package info.sanaebadi.domain.model.place
 import info.sanaebadi.domain.model.base.BaseDomainModel
 
 data class PlaceListModel(
-    val places: List<PlacesItem?>? = null
+    val places: List<PlaceItem?>? = null
 ) : BaseDomainModel
 
-data class PlacesItem(
+data class PlaceItem(
     val score: Double? = null,
     val shortAddress: String? = null,
     val bannerUrl: String? = null,

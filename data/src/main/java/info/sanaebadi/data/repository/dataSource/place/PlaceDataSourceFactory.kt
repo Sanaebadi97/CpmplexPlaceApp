@@ -2,8 +2,8 @@ package info.sanaebadi.data.repository.dataSource.place
 
 import info.sanaebadi.data.repository.dataSource.base.BaseDataSourceFactory
 import info.sanaebadi.data.repository.dataSourceImpl.place.PlaceOnlineDataSource
+import info.sanaebadi.domain.repository.CacheStrategy
 import io.reactivex.Completable
-import okhttp3.internal.cache.CacheStrategy
 
 class PlaceDataSourceFactory : BaseDataSourceFactory<PlaceDataSource> {
 

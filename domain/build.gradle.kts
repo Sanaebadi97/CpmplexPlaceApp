@@ -3,11 +3,21 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id(BuildPlugins.javaLibraryPlugin)
     id(BuildPlugins.kotlinPlugin)
+    id(BuildPlugins.kaptPlugin)
 }
 
 
 dependencies {
     implementation(Libraries.kotlinStdLib)
+    implementation(RXLibraries.rxAndroid)
+    implementation(RXLibraries.rxJava)
+    implementation(Libraries.arrow)
+
+    implementation(DaggerLib.dagger)
+    implementation(DaggerLib.daggerSupport)
+    kapt(DaggerLib.daggerCompiler)
+    kapt(DaggerLib.daggerProcessor)
+
     implementation(RXLibraries.rxAndroid)
     implementation(RXLibraries.rxJava)
 

@@ -32,6 +32,8 @@ object Libraries {
         const val constraintLayoutVersion = "2.0.0"
         const val ktxVersion = "1.3.0"
         const val materialVersion = "1.3.0-alpha02"
+        const val arrowVersion = "1.0.0"
+        const val lifeCycleVersion = "2.2.0"
     }
 
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
@@ -40,6 +42,12 @@ object Libraries {
         "androidx.constraintlayout:constraintlayout:${Versions.constraintLayoutVersion}"
     const val ktxCore = "androidx.core:core-ktx:${Versions.ktxVersion}"
     const val material = "com.google.android.material:material:${Versions.materialVersion}"
+    const val arrow = "com.fernandocejas:arrow:${Versions.arrowVersion}"
+    const val lifecycleViewModel =
+        "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifeCycleVersion}"
+    const val lifecycleLiveData =
+        "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifeCycleVersion}"
+
 }
 
 object TestLibraries {
