@@ -33,8 +33,6 @@ dependencies {
     implementation(Libraries.constraintLayout)
     implementation(Libraries.material)
 
-
-
     testImplementation(TestLibraries.junit4)
     androidTestImplementation(TestLibraries.testRunner)
     androidTestImplementation(TestLibraries.espresso)
