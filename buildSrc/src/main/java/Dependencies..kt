@@ -59,10 +59,13 @@ object Networking {
     private object Versions {
         const val retrofitVersion = "2.3.0"
         const val converterGsonVersion = "2.2.0"
+        const val rxRetrofitAdapterVersion = retrofitVersion
     }
 
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofitVersion}"
     const val convertor = "com.squareup.retrofit2:converter-gson:${Versions.converterGsonVersion}"
+    const val rxRetrofitAdapter =
+        "com.squareup.retrofit2:adapter-rxjava2:${Versions.rxRetrofitAdapterVersion}"
 }
 
 

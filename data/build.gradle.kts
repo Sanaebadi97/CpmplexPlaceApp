@@ -50,6 +50,7 @@ dependencies {
 
     implementation(Networking.retrofit)
     implementation(Networking.convertor)
+    implementation(Networking.rxRetrofitAdapter)
 
     implementation(RXLibraries.rxAndroid)
     implementation(RXLibraries.rxJava)
