@@ -7,23 +7,16 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-abstract class AbstractService<S> {
-    private var service: S
-    private var serviceType: Class<S>
+abstract class AbstractService<S>(
+    serviceType: Class<S>
+) {
+    internal var service: S
+    private var serviceType: Class<S>? = serviceType
 
-    constructor(
-        serviceType: Class<S>
-    ) {
-        this.serviceType = serviceType
+    init {
         service = createService(BuildConfig.API_BASE_URL)
     }
 
-    constructor(
-        serviceType: Class<S>, baseUrl: String
-    ) {
-        this.serviceType = serviceType
-        service = createService(baseUrl)
-    }
 
     fun setBaseUrl(baseUrl: String) {
         service = createService(baseUrl)
@@ -43,7 +36,6 @@ abstract class AbstractService<S> {
 
 
     companion object {
-        private const val AUTHORIZATION_KEY = "Authorization"
         private const val TIME_OUT_MIL_SECS = 60L
     }
 }
