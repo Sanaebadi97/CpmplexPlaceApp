@@ -1,8 +1,8 @@
 package info.sanaebadi.domain.repository.place
 
-import info.sanaebadi.domain.model.place.PlaceModel
+import info.sanaebadi.domain.model.place.PlaceListModel
 import io.reactivex.Single
 
 interface PlaceRepository {
-    fun getPlaces(): Single<List<PlaceModel>>
+    fun getPlaces(): Single<PlaceListModel>
 }

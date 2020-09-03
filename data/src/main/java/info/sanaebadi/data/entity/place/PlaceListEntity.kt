@@ -1,15 +1,15 @@
 package info.sanaebadi.data.entity.place
 
 import com.google.gson.annotations.SerializedName
-import info.sanaebadi.data.entity.base.Entity
+import info.sanaebadi.data.entity.base.BaseEntity
 
-data class PlaceEntity(
+data class PlaceListEntity(
 
 	@field:SerializedName("places")
-	val places: List<PlacesItem?>? = null
-) : Entity
+	val places: List<PlacesItemEntity?>? = null
+) : BaseEntity
 
-data class PlacesItem(
+data class PlacesItemEntity(
 
 	@field:SerializedName("score")
 	val score: Double? = null,
@@ -31,4 +31,4 @@ data class PlacesItem(
 
 	@field:SerializedName("title")
 	val title: String? = null
-)
+):BaseEntity

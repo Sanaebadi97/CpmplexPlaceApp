@@ -2,7 +2,7 @@ package info.sanaebadi.domain.model.place
 
 import info.sanaebadi.domain.model.base.BaseDomainModel
 
-data class PlaceModel(
+data class PlaceListModel(
     val places: List<PlacesItem?>? = null
 ) : BaseDomainModel
 
@@ -14,4 +14,4 @@ data class PlacesItem(
     val id: Int? = null,
     val iconUrl: String? = null,
     val title: String? = null
-)
+) : BaseDomainModel
