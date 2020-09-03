@@ -2,6 +2,7 @@
 package info.sanaebadi.data.executor
 
 
+import info.sanaebadi.domain.executor.ThreadExecutor
 import javax.inject.Inject
 import javax.inject.Singleton
 import java.util.concurrent.LinkedBlockingQueue

@@ -25,6 +25,15 @@ android {
         }
     }
 
+    flavorDimensions ("PlaceApp")
+    productFlavors {
+        create("tapsi") {
+            setDimension("PlaceApp")
+            buildConfigField("String", "API_BASE_URL", "\"https://tapsi.ir/api/v1/\"")
+        }
+
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
