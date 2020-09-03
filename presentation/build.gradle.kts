@@ -3,6 +3,7 @@ plugins {
     id(BuildPlugins.kotlinAndroid)
     id(BuildPlugins.kotlinAndroidExtensions)
     id(BuildPlugins.kaptPlugin)
+    id(BuildPlugins.safeArgs)
 }
 
 android {
@@ -37,14 +38,21 @@ dependencies {
     implementation(Libraries.ktxCore)
     implementation(Libraries.constraintLayout)
     implementation(Libraries.material)
-    implementation(Libraries.lifecycleLiveData)
-    implementation(Libraries.lifecycleViewModel)
+
+    implementation(JetPackLibraries.lifecycleViewModel)
+    implementation(JetPackLibraries.lifecycleLiveData)
+
+
+    implementation(JetPackLibraries.navigationFragment)
+    implementation(JetPackLibraries.navigationUi)
+
 
     implementation(RXLibraries.rxAndroid)
     implementation(RXLibraries.rxJava)
 
     implementation(DaggerLib.dagger)
     implementation(DaggerLib.daggerSupport)
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
     kapt(DaggerLib.daggerCompiler)
     kapt(DaggerLib.daggerProcessor)
 

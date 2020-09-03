@@ -4,10 +4,13 @@ object BuildPlugins {
 
     object Versions {
         const val buildToolsVersion = "4.0.1"
+        const val safeArgsVersion = "2.3.0"
     }
 
     const val androidGradlePlugin = "com.android.tools.build:gradle:${Versions.buildToolsVersion}"
     const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    const val safeArgsPlugin =
+        "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.safeArgsVersion}"
     const val androidApplication = "com.android.application"
     const val kotlinAndroid = "kotlin-android"
     const val kotlinAndroidExtensions = "kotlin-android-extensions"
@@ -15,6 +18,7 @@ object BuildPlugins {
     const val androidLibrary = "com.android.library"
     const val javaLibraryPlugin = "java-library"
     const val kotlinPlugin = "kotlin"
+    const val safeArgs = "androidx.navigation.safeargs.kotlin"
 
 }
 
@@ -33,7 +37,7 @@ object Libraries {
         const val ktxVersion = "1.3.0"
         const val materialVersion = "1.3.0-alpha02"
         const val arrowVersion = "1.0.0"
-        const val lifeCycleVersion = "2.2.0"
+
     }
 
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
@@ -43,11 +47,26 @@ object Libraries {
     const val ktxCore = "androidx.core:core-ktx:${Versions.ktxVersion}"
     const val material = "com.google.android.material:material:${Versions.materialVersion}"
     const val arrow = "com.fernandocejas:arrow:${Versions.arrowVersion}"
+
+
+}
+
+object JetPackLibraries {
+    private object Versions {
+        const val lifeCycleVersion = "2.2.0"
+        const val navigationVersion = "2.3.0"
+
+    }
+
     const val lifecycleViewModel =
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifeCycleVersion}"
     const val lifecycleLiveData =
         "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifeCycleVersion}"
 
+    const val navigationFragment =
+        "androidx.navigation:navigation-fragment-ktx:${Versions.navigationVersion}"
+    const val navigationUi =
+        "androidx.navigation:navigation-ui-ktx:${Versions.navigationVersion}"
 }
 
 object TestLibraries {
