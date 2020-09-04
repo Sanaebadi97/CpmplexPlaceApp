@@ -25,7 +25,7 @@ android {
             )
         }
     }
-
+    viewBinding.isEnabled = true
 }
 
 
