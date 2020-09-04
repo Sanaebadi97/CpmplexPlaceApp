@@ -15,18 +15,13 @@ import javax.inject.Singleton
 @Module
 class ApplicationModule {
 
-    //TODO:DEFIND REPOSITORY AND CACHE HERE
+    //TODO:DEFINE REPOSITORY AND CACHE HERE
 
     @Provides
     internal fun provideContext(application: PlaceApplication): Context {
         return application.applicationContext
     }
 
-    @Provides
-    @Singleton
-    fun providesPlaceRepository(placeRepository: PlaceRepository?): PlaceRepository? {
-        return placeRepository
-    }
 
     @Provides
     @Singleton
@@ -40,7 +35,6 @@ class ApplicationModule {
         return uiThread
     }
 
-    //endregion
     @Provides
     @Singleton
     fun providePlaceRepository(placeDataRepository: PlaceDataRepository): PlaceRepository {

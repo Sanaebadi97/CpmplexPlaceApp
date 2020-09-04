@@ -26,6 +26,10 @@ open class MutableViewModel<T> {
         this.data = data
     }
 
+    fun getData(): T? {
+        return data
+    }
+
     open fun getThrowable(): Throwable? {
         return throwable
     }

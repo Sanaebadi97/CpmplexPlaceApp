@@ -8,10 +8,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <!--    <include-->
-        <!--        android:id="@+id/card_festival_banner"-->
-        <!--        layout="@layout/festival_banner"-->
-        <!--        android:visibility="gone" />-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_places"
@@ -26,7 +22,7 @@
             android:id="@+id/loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,12 +31,12 @@
 
         <include
             android:id="@+id/view_empty"
-            layout="@layout/no_investment_found"
+            layout="@layout/empty_view"
             android:visibility="gone" />
 
         <include
             android:id="@+id/view_error"
-            layout="@layout/view_error"
+            layout="@layout/error_view"
             android:visibility="gone" />
 
 

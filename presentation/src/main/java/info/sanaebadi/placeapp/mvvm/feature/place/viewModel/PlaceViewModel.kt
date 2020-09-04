@@ -14,7 +14,7 @@ class PlaceViewModel @Inject constructor(
     private val mapper: PlacePresentationsMapper
 ) : ViewModel() {
 
-    public var place = MutableLiveData<MutableViewModel<PlaceListModel>>()
+     var place = MutableLiveData<MutableViewModel<PlaceListModel>>()
 
 
     fun getPlaces() {

@@ -9,9 +9,9 @@ import javax.inject.Inject
 
 class PlaceApplication : Application(), HasAndroidInjector {
 
+
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
-
 
     override fun androidInjector(): AndroidInjector<Any> {
         return dispatchingAndroidInjector
@@ -29,4 +29,6 @@ class PlaceApplication : Application(), HasAndroidInjector {
     private fun initializeAppInjector() {
         DaggerApplicationComponent.builder().application(this).build().inject(this)
     }
+
+
 }
