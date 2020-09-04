@@ -1,6 +1,6 @@
 package info.sanaebadi.placeapp.mvvm.base
 
-open class MutableViewModelModel<T> {
+open class MutableViewModel<T> {
     private var loading = true
     private var data: T? = null
         private set

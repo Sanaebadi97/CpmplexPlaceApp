@@ -6,7 +6,7 @@ import info.sanaebadi.domain.interactor.base.BaseSingleObserver
 import info.sanaebadi.domain.interactor.place.PlaceUseCase
 import info.sanaebadi.domain.model.place.PlaceListModel
 import info.sanaebadi.placeapp.mapper.place.PlacePresentationsMapper
-import info.sanaebadi.placeapp.mvvm.base.MutableViewModelModel
+import info.sanaebadi.placeapp.mvvm.base.MutableViewModel
 import javax.inject.Inject
 
 class PlaceViewModel @Inject constructor(
@@ -14,11 +14,11 @@ class PlaceViewModel @Inject constructor(
     private val mapper: PlacePresentationsMapper
 ) : ViewModel() {
 
-    private var place = MutableLiveData<MutableViewModelModel<PlaceListModel>>()
+    public var place = MutableLiveData<MutableViewModel<PlaceListModel>>()
 
 
     fun getPlaces() {
-        val value = MutableViewModelModel<PlaceListModel>()
+        val value = MutableViewModel<PlaceListModel>()
         value.setLoading(true)
         place.postValue(value)
 
