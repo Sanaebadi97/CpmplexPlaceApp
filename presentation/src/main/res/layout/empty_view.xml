@@ -23,8 +23,11 @@
         android:layout_marginTop="@dimen/default_margin_five_fourth"
         android:layout_marginBottom="@dimen/default_margin_double"
         android:gravity="center"
-        android:textColor="@color/empty_error_view_message"
+        android:fontFamily="@font/iransans_medium"
+        android:textColor="@color/thirdTextColor"
         android:textSize="@dimen/text_size_middle_huge"
         app:layout_constraintTop_toBottomOf="@id/image_open_box" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
