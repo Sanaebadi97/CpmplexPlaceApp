@@ -58,8 +58,11 @@ dependencies {
     kapt(DaggerLib.daggerProcessor)
 
     implementation(Networking.retrofit)
-    implementation(Networking.convertor)
     implementation(Networking.rxRetrofitAdapter)
+    implementation(Networking.converterScalars)
+    implementation(Networking.converterMoshi)
+    api(Networking.moshi)
+    kapt(Networking.moshiKotlin)
 
     implementation(RXLibraries.rxAndroid)
     implementation(RXLibraries.rxJava)
@@ -67,5 +70,7 @@ dependencies {
     testImplementation(TestLibraries.junit4)
     androidTestImplementation(TestLibraries.testRunner)
     androidTestImplementation(TestLibraries.espresso)
+
+    implementation( "com.squareup.okhttp3:logging-interceptor:4.3.1")
 
 }

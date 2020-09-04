@@ -1,34 +1,12 @@
 package info.sanaebadi.data.entity.place
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import info.sanaebadi.data.entity.base.BaseEntity
 
+@JsonClass(generateAdapter = true)
 data class PlaceListEntity(
-
-	@field:SerializedName("places")
-	val places: List<PlacesItemEntity?>? = null
+	@field:Json(name = "places")
+	val places: MutableList<PlacesItemEntity?>? = null
 ) : BaseEntity
 
-data class PlacesItemEntity(
-
-	@field:SerializedName("score")
-	val score: Double? = null,
-
-	@field:SerializedName("shortAddress")
-	val shortAddress: String? = null,
-
-	@field:SerializedName("bannerUrl")
-	val bannerUrl: String? = null,
-
-	@field:SerializedName("description")
-	val description: String? = null,
-
-	@field:SerializedName("id")
-	val id: Int? = null,
-
-	@field:SerializedName("iconUrl")
-	val iconUrl: String? = null,
-
-	@field:SerializedName("title")
-	val title: String? = null
-):BaseEntity

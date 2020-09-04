@@ -87,12 +87,19 @@ object Networking {
         const val retrofitVersion = "2.3.0"
         const val converterGsonVersion = "2.2.0"
         const val rxRetrofitAdapterVersion = retrofitVersion
+        const val converterScalarsVersion="2.5.0"
+        const val moshiVersion = "1.9.2"
     }
 
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofitVersion}"
     const val convertor = "com.squareup.retrofit2:converter-gson:${Versions.converterGsonVersion}"
     const val rxRetrofitAdapter =
         "com.squareup.retrofit2:adapter-rxjava2:${Versions.rxRetrofitAdapterVersion}"
+
+    const val converterScalars="com.squareup.retrofit2:converter-scalars:${Versions.converterScalarsVersion}"
+    const val converterMoshi = "com.squareup.retrofit2:converter-moshi:${Versions.retrofitVersion}"
+    const val moshi = "com.squareup.moshi:moshi:${Versions.moshiVersion}"
+    const val moshiKotlin = "com.squareup.moshi:moshi-kotlin-codegen:${Versions.moshiVersion}"
 }
 
 
