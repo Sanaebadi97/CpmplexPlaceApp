@@ -6,5 +6,5 @@ import retrofit2.http.GET
 
 interface PromotedApiRetrofitService {
     @GET("promoted")
-    fun getPlaces(): Single<PromotedListEntity>
+    fun getPromotedPlaces(): Single<PromotedListEntity>
 }

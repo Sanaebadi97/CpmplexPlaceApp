@@ -1,7 +1,7 @@
 package info.sanaebadi.placeapp.mapper.place
 
-import info.sanaebadi.domain.model.place.PlaceItem
-import info.sanaebadi.domain.model.place.PlaceListModel
+import info.sanaebadi.domain.model.place.places.PlaceItem
+import info.sanaebadi.domain.model.place.places.PlaceListModel
 import info.sanaebadi.placeapp.mapper.base.PresentationLayerMapper
 import info.sanaebadi.placeapp.model.place.PlaceListPresentation
 import info.sanaebadi.placeapp.model.place.PlacesPresentationItem

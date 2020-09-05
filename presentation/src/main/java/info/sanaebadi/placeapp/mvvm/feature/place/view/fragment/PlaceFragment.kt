@@ -9,6 +9,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import dagger.android.support.AndroidSupportInjection
+import info.sanaebadi.domain.model.place.places.PlaceListModel
 import info.sanaebadi.placeapp.databinding.FragmentPlaceBinding
 import info.sanaebadi.placeapp.model.place.PlaceListPresentation
 import info.sanaebadi.placeapp.mvvm.base.BaseFragment
@@ -23,7 +24,7 @@ class PlaceFragment : BaseFragment() {
 
     private var binding: FragmentPlaceBinding? = null
 
-    private lateinit var data: PlaceListPresentation
+    private  var data: PlaceListModel?=null
 
     private val viewModel: PlaceViewModel by lazy {
         ViewModelProvider(requireActivity(), viewModelFactory).get(PlaceViewModel::class.java)
@@ -74,7 +75,7 @@ class PlaceFragment : BaseFragment() {
                 else -> {
                     hideLoading(binding?.loading)
                     hideErrorView(binding?.viewError?.viewError)
-                    data = mutableViewModelModel.getData() as PlaceListPresentation
+                    data = mutableViewModelModel.getData()
                     Log.i(TAG, "setUpObserver: $data")
                 }
             }

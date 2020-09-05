@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import info.sanaebadi.domain.interactor.base.BaseSingleObserver
 import info.sanaebadi.domain.interactor.place.PlaceUseCase
-import info.sanaebadi.domain.model.place.PlaceListModel
+import info.sanaebadi.domain.model.place.places.PlaceListModel
 import info.sanaebadi.placeapp.mapper.place.PlacePresentationsMapper
 import info.sanaebadi.placeapp.mvvm.base.MutableViewModel
 import javax.inject.Inject

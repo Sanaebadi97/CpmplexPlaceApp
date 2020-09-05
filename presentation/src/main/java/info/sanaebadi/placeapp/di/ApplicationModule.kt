@@ -4,10 +4,10 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import info.sanaebadi.data.executor.JobExecutor
-import info.sanaebadi.data.repository.dataSource.place.PlaceDataRepository
+import info.sanaebadi.data.repository.dataSource.place.places.PlaceDataRepository
 import info.sanaebadi.domain.executor.PostExecutionThread
 import info.sanaebadi.domain.executor.ThreadExecutor
-import info.sanaebadi.domain.repository.place.PlaceRepository
+import info.sanaebadi.domain.repository.place.places.PlaceRepository
 import info.sanaebadi.placeapp.executors.UIThread
 import info.sanaebadi.placeapp.global.PlaceApplication
 import javax.inject.Singleton

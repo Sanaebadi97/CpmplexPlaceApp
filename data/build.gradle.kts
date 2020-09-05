@@ -29,7 +29,7 @@ android {
     productFlavors {
         create("tapsi") {
             setDimension("PlaceApp")
-            buildConfigField("String", "API_BASE_URL", "\"https://tapsi.ir/api/v1/\"")
+            buildConfigField("String", "API_BASE_URL", "\"http://tapsi.docker.webdooz.com/api/v1/\"")
         }
 
     }
@@ -71,6 +71,5 @@ dependencies {
     androidTestImplementation(TestLibraries.testRunner)
     androidTestImplementation(TestLibraries.espresso)
 
-    implementation( "com.squareup.okhttp3:logging-interceptor:4.3.1")
 
 }

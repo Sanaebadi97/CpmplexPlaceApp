@@ -3,8 +3,8 @@ package info.sanaebadi.domain.interactor.place
 import info.sanaebadi.domain.executor.PostExecutionThread
 import info.sanaebadi.domain.executor.ThreadExecutor
 import info.sanaebadi.domain.interactor.base.SingleUseCase
-import info.sanaebadi.domain.model.place.PlaceListModel
-import info.sanaebadi.domain.repository.place.PlaceRepository
+import info.sanaebadi.domain.model.place.places.PlaceListModel
+import info.sanaebadi.domain.repository.place.places.PlaceRepository
 import io.reactivex.Single
 import javax.inject.Inject
 

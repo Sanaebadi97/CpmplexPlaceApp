@@ -1,4 +1,4 @@
-package info.sanaebadi.data.entity.place
+package info.sanaebadi.data.entity.place.places
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
