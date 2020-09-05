@@ -5,13 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.android.support.AndroidSupportInjection
 import info.sanaebadi.domain.model.place.places.PlaceItem
 import info.sanaebadi.domain.model.place.places.PlaceListModel
+import info.sanaebadi.placeapp.R
 import info.sanaebadi.placeapp.databinding.FragmentPlaceBinding
 import info.sanaebadi.placeapp.mvvm.base.BaseFragment
 import info.sanaebadi.placeapp.mvvm.feature.place.view.adapter.PlaceAdapter
@@ -19,14 +23,21 @@ import info.sanaebadi.placeapp.mvvm.feature.place.viewModel.PlaceViewModel
 import kotlinx.android.synthetic.main.fragment_place.*
 import javax.inject.Inject
 
-class PlaceFragment : BaseFragment() {
+class PlaceFragment : BaseFragment(), PlaceAdapter.ItemClickListener {
+
+    private var binding: FragmentPlaceBinding? = null
+    private var navController: NavController? = null
+    private var data: PlaceListModel? = null
+
+    private var placeTitle: String? = null
+    private var placeShortAddress: String? = null
+    private var placeDescription: String? = null
+    private var placeBannerUrl: String? = null
+    private var placeScore: Double? = null
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private var binding: FragmentPlaceBinding? = null
-
-    private var data: PlaceListModel? = null
 
     private val viewModel: PlaceViewModel by lazy {
         ViewModelProvider(requireActivity(), viewModelFactory).get(PlaceViewModel::class.java)
@@ -48,6 +59,7 @@ class PlaceFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(view)
         viewModel.getPlaces()
         setUpObserver()
         onRetryClick()
@@ -62,7 +74,7 @@ class PlaceFragment : BaseFragment() {
 
     private fun setUpAdapter(data: List<PlaceItem?>) {
         setUpRecyclerview()
-        val adapter = PlaceAdapter(data)
+        val adapter = PlaceAdapter(this, data)
         binding?.recyclerPlaces?.adapter = adapter
     }
 
@@ -142,5 +154,25 @@ class PlaceFragment : BaseFragment() {
 
     companion object {
         const val TAG: String = "PlaceFragment"
+    }
+
+    override fun onItemClick(position: Int) {
+        placeTitle = data?.places?.get(position)?.title
+        placeShortAddress = data?.places?.get(position)?.shortAddress
+        placeDescription = data?.places?.get(position)?.description
+        placeScore = data?.places?.get(position)?.score
+        placeBannerUrl = data?.places?.get(position)?.bannerUrl
+
+        val bundle = bundleOf(
+            "placeTitle" to placeTitle,
+            "placeShortAddress" to placeShortAddress,
+            "placeDescription" to placeDescription,
+            "placeScore" to placeScore,
+            "placeBannerUrl" to placeBannerUrl,
+        )
+        //navigate to details fragment with bundle
+        navController!!.navigate(R.id.action_placeFragment_to_detailsFragment, bundle)
+
+
     }
 }

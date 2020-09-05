@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:maxWidth="1dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_place_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:fontFamily="@font/iransans_bold"
+            android:textSize="@dimen/text_size_very_large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="مکان تپسی" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_place_short_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:fontFamily="@font/iransans_light"
+            android:textSize="@dimen/text_size_medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_place_title"
+            tools:text="تهران ونک " />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_place_title"
+            app:srcCompat="@drawable/ic_baseline_star_24" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_place_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:fontFamily="@font/iransans_bold"
+            android:textSize="@dimen/text_size_medium"
+            app:layout_constraintStart_toEndOf="@id/image_score"
+            app:layout_constraintTop_toTopOf="@id/text_place_title"
+            tools:text="3.5 " />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image_place_banner"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginStart="@dimen/default_margin_half"
+            android:layout_marginTop="@dimen/default_margin_half"
+            android:layout_marginEnd="@dimen/default_margin_half"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toBottomOf="@id/text_place_short_address"
+            tools:src="@mipmap/ic_launcher" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/text_place_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin_half"
+            android:layout_marginTop="@dimen/default_margin_half"
+            android:layout_marginEnd="@dimen/default_margin_half"
+            android:fontFamily="@font/iransans_medium"
+            android:paddingStart="@dimen/default_margin_half"
+            android:paddingEnd="@dimen/default_margin_half"
+            android:textSize="@dimen/text_size_medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_place_banner"
+            tools:text="تهران ونک " />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

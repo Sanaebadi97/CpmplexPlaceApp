@@ -7,8 +7,15 @@ import info.sanaebadi.domain.model.place.places.PlaceItem
 import info.sanaebadi.placeapp.databinding.PlaceItemBinding
 import info.sanaebadi.placeapp.mvvm.feature.place.view.viewHolder.PlaceViewHolder
 
-class PlaceAdapter(private var placeList: List<PlaceItem?> = emptyList()) :
+class PlaceAdapter(
+    private var listener: ItemClickListener,
+    private var placeList: List<PlaceItem?> = emptyList()
+) :
     RecyclerView.Adapter<PlaceViewHolder>() {
+
+    companion object {
+        var listener: ItemClickListener? = null
+    }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaceViewHolder {
@@ -19,7 +26,15 @@ class PlaceAdapter(private var placeList: List<PlaceItem?> = emptyList()) :
 
     override fun onBindViewHolder(holder: PlaceViewHolder, position: Int) {
         holder.bind(placeList[position]!!)
+        holder.itemView.setOnClickListener {
+            listener.onItemClick(position)
+        }
+
     }
 
     override fun getItemCount() = placeList.size
+
+    interface ItemClickListener {
+        fun onItemClick(position: Int)
+    }
 }
