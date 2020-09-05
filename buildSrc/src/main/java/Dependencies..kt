@@ -37,6 +37,7 @@ object Libraries {
         const val ktxVersion = "1.3.0"
         const val materialVersion = "1.3.0-alpha02"
         const val arrowVersion = "1.0.0"
+        const val glideVersion = "4.11.0"
 
     }
 
@@ -47,6 +48,8 @@ object Libraries {
     const val ktxCore = "androidx.core:core-ktx:${Versions.ktxVersion}"
     const val material = "com.google.android.material:material:${Versions.materialVersion}"
     const val arrow = "com.fernandocejas:arrow:${Versions.arrowVersion}"
+    const val glide = "com.github.bumptech.glide:glide:${Versions.glideVersion}"
+    const val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.glideVersion}"
 
 
 }
@@ -87,12 +90,20 @@ object Networking {
         const val retrofitVersion = "2.3.0"
         const val converterGsonVersion = "2.2.0"
         const val rxRetrofitAdapterVersion = retrofitVersion
+        const val converterScalarsVersion = "2.5.0"
+        const val moshiVersion = "1.9.2"
     }
 
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofitVersion}"
     const val convertor = "com.squareup.retrofit2:converter-gson:${Versions.converterGsonVersion}"
     const val rxRetrofitAdapter =
         "com.squareup.retrofit2:adapter-rxjava2:${Versions.rxRetrofitAdapterVersion}"
+
+    const val converterScalars =
+        "com.squareup.retrofit2:converter-scalars:${Versions.converterScalarsVersion}"
+    const val converterMoshi = "com.squareup.retrofit2:converter-moshi:${Versions.retrofitVersion}"
+    const val moshi = "com.squareup.moshi:moshi:${Versions.moshiVersion}"
+    const val moshiKotlin = "com.squareup.moshi:moshi-kotlin-codegen:${Versions.moshiVersion}"
 }
 
 

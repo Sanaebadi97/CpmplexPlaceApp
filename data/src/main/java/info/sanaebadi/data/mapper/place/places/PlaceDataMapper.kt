@@ -1,10 +1,10 @@
-package info.sanaebadi.data.mapper.place
+package info.sanaebadi.data.mapper.place.places
 
-import info.sanaebadi.data.entity.place.PlaceListEntity
-import info.sanaebadi.data.entity.place.PlacesItemEntity
+import info.sanaebadi.data.entity.place.places.PlaceListEntity
+import info.sanaebadi.data.entity.place.places.PlacesItemEntity
 import info.sanaebadi.data.mapper.base.DataLayerMapper
-import info.sanaebadi.domain.model.place.PlaceItem
-import info.sanaebadi.domain.model.place.PlaceListModel
+import info.sanaebadi.domain.model.place.places.PlaceItem
+import info.sanaebadi.domain.model.place.places.PlaceListModel
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton

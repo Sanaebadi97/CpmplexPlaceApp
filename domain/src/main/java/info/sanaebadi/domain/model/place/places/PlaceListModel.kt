@@ -1,4 +1,4 @@
-package info.sanaebadi.domain.model.place
+package info.sanaebadi.domain.model.place.places
 
 import info.sanaebadi.domain.model.base.BaseDomainModel
 

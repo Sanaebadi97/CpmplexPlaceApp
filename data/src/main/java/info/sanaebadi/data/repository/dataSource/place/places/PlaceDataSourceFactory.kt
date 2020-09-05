@@ -1,11 +1,12 @@
-package info.sanaebadi.data.repository.dataSource.place
+package info.sanaebadi.data.repository.dataSource.place.places
 
 import info.sanaebadi.data.repository.dataSource.base.BaseDataSourceFactory
-import info.sanaebadi.data.repository.dataSourceImpl.place.PlaceOnlineDataSource
+import info.sanaebadi.data.repository.dataSourceImpl.place.places.PlaceOnlineDataSource
 import info.sanaebadi.domain.repository.CacheStrategy
 import io.reactivex.Completable
+import javax.inject.Inject
 
-class PlaceDataSourceFactory : BaseDataSourceFactory<PlaceDataSource> {
+class PlaceDataSourceFactory @Inject constructor() : BaseDataSourceFactory<PlaceDataSource> {
 
     override fun create(cacheStrategy: CacheStrategy?, vararg params: String?): PlaceDataSource {
         return PlaceOnlineDataSource()

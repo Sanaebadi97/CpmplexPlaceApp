@@ -1,6 +1,6 @@
 package info.sanaebadi.placeapp.mvvm.base
 
-open class MutableViewModelModel<T> {
+open class MutableViewModel<T> {
     private var loading = true
     private var data: T? = null
         private set
@@ -24,6 +24,10 @@ open class MutableViewModelModel<T> {
 
     fun setData(data: T) {
         this.data = data
+    }
+
+    fun getData(): T? {
+        return data
     }
 
     open fun getThrowable(): Throwable? {

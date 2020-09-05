@@ -1,60 +1,146 @@
 package info.sanaebadi.placeapp.mvvm.feature.place.view.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import info.sanaebadi.placeapp.R
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import dagger.android.support.AndroidSupportInjection
+import info.sanaebadi.domain.model.place.places.PlaceItem
+import info.sanaebadi.domain.model.place.places.PlaceListModel
+import info.sanaebadi.placeapp.databinding.FragmentPlaceBinding
+import info.sanaebadi.placeapp.mvvm.base.BaseFragment
+import info.sanaebadi.placeapp.mvvm.feature.place.view.adapter.PlaceAdapter
+import info.sanaebadi.placeapp.mvvm.feature.place.viewModel.PlaceViewModel
+import kotlinx.android.synthetic.main.fragment_place.*
+import javax.inject.Inject
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class PlaceFragment : BaseFragment() {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [PlaceFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class PlaceFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private var binding: FragmentPlaceBinding? = null
+
+    private var data: PlaceListModel? = null
+
+    private val viewModel: PlaceViewModel by lazy {
+        ViewModelProvider(requireActivity(), viewModelFactory).get(PlaceViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidSupportInjection.inject(this)
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_place, container, false)
+        binding = FragmentPlaceBinding.inflate(inflater, container, false)
+        return binding?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.getPlaces()
+        setUpObserver()
+        onRetryClick()
+
+    }
+
+    private fun setUpRecyclerview() {
+        val layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        binding?.recyclerPlaces?.layoutManager = layoutManager
+        binding?.recyclerPlaces?.setHasFixedSize(true)
+    }
+
+    private fun setUpAdapter(data: List<PlaceItem?>) {
+        setUpRecyclerview()
+        val adapter = PlaceAdapter(data)
+        binding?.recyclerPlaces?.adapter = adapter
+    }
+
+    //TODO:ADD NETWORK
+    private fun onRetryClick() {
+        binding?.viewError?.buttonTryAgain?.setOnClickListener { v -> viewModel.getPlaces() }
+    }
+
+
+    private fun setUpObserver() {
+        viewModel.place.observe(viewLifecycleOwner, Observer { mutableViewModelModel ->
+
+            when {
+                mutableViewModelModel.isLoading() -> {
+                    showLoading(binding?.loading)
+                    hideEmptyView(binding?.viewEmpty?.viewEmpty)
+                    hideErrorView(binding?.viewError?.viewError)
+                }
+                mutableViewModelModel.getThrowable() != null -> {
+                    hideLoading(binding?.loading)
+                    hideEmptyView(binding?.viewEmpty?.viewEmpty)
+                    mutableViewModelModel.getThrowable()!!.message?.let {
+                        showErrorView(
+                            it,
+                            binding?.viewError?.textErrorMessage,
+                            view_error
+                        )
+                    }
+                }
+                else -> {
+                    hideLoading(binding?.loading)
+                    hideErrorView(binding?.viewError?.viewError)
+                    data = mutableViewModelModel.getData()
+
+
+                    if (data?.places?.size != 0) {
+                        setUpAdapter(data?.places!!)
+                    } else {
+                        showEmptyView(binding?.viewEmpty?.viewEmpty)
+                    }
+                }
+            }
+        })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
+    }
+
+    override fun showLoading(view: View?) {
+        super.showLoading(view)
+    }
+
+    override fun hideLoading(view: View?) {
+        super.hideLoading(view)
+    }
+
+    override fun showEmptyView(view: View?) {
+        super.showEmptyView(view)
+        binding?.recyclerPlaces?.visibility = View.GONE
+    }
+
+    override fun hideEmptyView(view: View?) {
+        super.hideEmptyView(view)
+        binding?.recyclerPlaces?.visibility = View.VISIBLE
+    }
+
+    override fun showErrorView(message: String?, textError: AppCompatTextView?, view: View?) {
+        super.showErrorView(message, textError, view)
+        binding?.recyclerPlaces?.visibility = View.GONE
+    }
+
+    override fun hideErrorView(view: View?) {
+        super.hideErrorView(view)
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PlaceFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PlaceFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        const val TAG: String = "PlaceFragment"
     }
 }

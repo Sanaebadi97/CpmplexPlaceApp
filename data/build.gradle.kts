@@ -29,7 +29,7 @@ android {
     productFlavors {
         create("tapsi") {
             setDimension("PlaceApp")
-            buildConfigField("String", "API_BASE_URL", "\"https://tapsi.ir/api/v1/\"")
+            buildConfigField("String", "API_BASE_URL", "\"http://tapsi.docker.webdooz.com/api/v1/\"")
         }
 
     }
@@ -58,8 +58,11 @@ dependencies {
     kapt(DaggerLib.daggerProcessor)
 
     implementation(Networking.retrofit)
-    implementation(Networking.convertor)
     implementation(Networking.rxRetrofitAdapter)
+    implementation(Networking.converterScalars)
+    implementation(Networking.converterMoshi)
+    api(Networking.moshi)
+    kapt(Networking.moshiKotlin)
 
     implementation(RXLibraries.rxAndroid)
     implementation(RXLibraries.rxJava)
@@ -67,5 +70,6 @@ dependencies {
     testImplementation(TestLibraries.junit4)
     androidTestImplementation(TestLibraries.testRunner)
     androidTestImplementation(TestLibraries.espresso)
+
 
 }
