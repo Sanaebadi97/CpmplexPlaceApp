@@ -37,4 +37,9 @@ class PlaceAdapter(
     interface ItemClickListener {
         fun onItemClick(position: Int)
     }
+
+    fun updateList(list: List<PlaceItem?>) {
+        placeList = list
+        notifyDataSetChanged()
+    }
 }

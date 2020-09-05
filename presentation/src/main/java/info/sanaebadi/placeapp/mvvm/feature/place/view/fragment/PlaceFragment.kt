@@ -1,6 +1,8 @@
 package info.sanaebadi.placeapp.mvvm.feature.place.view.fragment
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +23,7 @@ import info.sanaebadi.placeapp.mvvm.base.BaseFragment
 import info.sanaebadi.placeapp.mvvm.feature.place.view.adapter.PlaceAdapter
 import info.sanaebadi.placeapp.mvvm.feature.place.viewModel.PlaceViewModel
 import kotlinx.android.synthetic.main.fragment_place.*
+import java.util.*
 import javax.inject.Inject
 
 class PlaceFragment : BaseFragment(), PlaceAdapter.ItemClickListener {
@@ -34,6 +37,8 @@ class PlaceFragment : BaseFragment(), PlaceAdapter.ItemClickListener {
     private var placeDescription: String? = null
     private var placeBannerUrl: String? = null
     private var placeScore: Double? = null
+
+    private var adapter: PlaceAdapter? = null
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -64,6 +69,18 @@ class PlaceFragment : BaseFragment(), PlaceAdapter.ItemClickListener {
         setUpObserver()
         onRetryClick()
 
+        filterList()
+
+    }
+
+    private fun filterList() {
+        binding?.editQuery?.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable) {
+                filter(s.toString())
+            }
+        })
     }
 
     private fun setUpRecyclerview() {
@@ -74,7 +91,7 @@ class PlaceFragment : BaseFragment(), PlaceAdapter.ItemClickListener {
 
     private fun setUpAdapter(data: List<PlaceItem?>) {
         setUpRecyclerview()
-        val adapter = PlaceAdapter(this, data)
+        adapter = PlaceAdapter(this, data)
         binding?.recyclerPlaces?.adapter = adapter
     }
 
@@ -174,5 +191,16 @@ class PlaceFragment : BaseFragment(), PlaceAdapter.ItemClickListener {
         navController!!.navigate(R.id.action_placeFragment_to_detailsFragment, bundle)
 
 
+    }
+
+
+    fun filter(text: CharSequence?) {
+        val temp: MutableList<PlaceItem?> = ArrayList<PlaceItem?>()
+        for (placeItem: PlaceItem? in data?.places!!) {
+            if (placeItem?.title?.contains(text!!)!! || placeItem.shortAddress?.contains(text!!)!!) {
+                temp.add(placeItem)
+            }
+        }
+        adapter?.updateList(temp)
     }
 }
