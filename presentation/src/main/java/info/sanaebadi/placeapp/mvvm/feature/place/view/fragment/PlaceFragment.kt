@@ -15,6 +15,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.android.support.AndroidSupportInjection
+import info.sanaebadi.domain.model.place.favorite.FavoriteListItem
 import info.sanaebadi.domain.model.place.places.PlaceItem
 import info.sanaebadi.domain.model.place.places.PlaceListModel
 import info.sanaebadi.placeapp.R
@@ -26,11 +27,13 @@ import kotlinx.android.synthetic.main.fragment_place.*
 import java.util.*
 import javax.inject.Inject
 
-class PlaceFragment : BaseFragment(), PlaceAdapter.ItemClickListener {
+class PlaceFragment : BaseFragment(), PlaceAdapter.ItemClickListener, PlaceAdapter.OnItemView {
 
     private var binding: FragmentPlaceBinding? = null
     private var navController: NavController? = null
     private var data: PlaceListModel? = null
+
+    private var favoriteData: FavoriteListItem? = null
 
     private var placeTitle: String? = null
     private var placeShortAddress: String? = null
@@ -39,6 +42,7 @@ class PlaceFragment : BaseFragment(), PlaceAdapter.ItemClickListener {
     private var placeScore: Double? = null
 
     private var adapter: PlaceAdapter? = null
+    private var favoriteIds: Int? = null
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -66,6 +70,7 @@ class PlaceFragment : BaseFragment(), PlaceAdapter.ItemClickListener {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
         viewModel.getPlaces()
+        viewModel.getFavorite()
         setUpObserver()
         onRetryClick()
 
@@ -91,7 +96,7 @@ class PlaceFragment : BaseFragment(), PlaceAdapter.ItemClickListener {
 
     private fun setUpAdapter(data: List<PlaceItem?>) {
         setUpRecyclerview()
-        adapter = PlaceAdapter(this, data)
+        adapter = PlaceAdapter(this, this, data)
         binding?.recyclerPlaces?.adapter = adapter
     }
 
@@ -132,6 +137,22 @@ class PlaceFragment : BaseFragment(), PlaceAdapter.ItemClickListener {
                     } else {
                         showEmptyView(binding?.viewEmpty?.viewEmpty)
                     }
+                }
+            }
+        })
+        viewModel.favorite.observe(viewLifecycleOwner, Observer { mutableViewModelModel ->
+            when {
+                mutableViewModelModel.isLoading() -> {
+                }
+                mutableViewModelModel.getThrowable() != null -> {
+                    mutableViewModelModel.getThrowable()!!.message?.let {
+                    }
+                }
+                else -> {
+                    favoriteData = mutableViewModelModel.getData()
+                    favoriteIds = favoriteData?.favoriteIds?.size!!
+
+
                 }
             }
         })
@@ -203,4 +224,15 @@ class PlaceFragment : BaseFragment(), PlaceAdapter.ItemClickListener {
         }
         adapter?.updateList(temp)
     }
+
+    override fun onFavoriteItem(view: View, position: Int) {
+        if (favoriteData?.favoriteIds?.size != 0) {
+            for (i in 0 until favoriteData?.favoriteIds?.size!!) {
+                if (favoriteData?.favoriteIds!![i]!! == data?.places!![position]?.id)
+                    view.visibility = View.VISIBLE
+                continue
+            }
+        }
+    }
+
 }
