@@ -1,4 +1,4 @@
-package info.sanaebadi.data.entity.promoted
+package info.sanaebadi.data.entity.place.promoted
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
