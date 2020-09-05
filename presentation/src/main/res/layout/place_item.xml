@@ -19,11 +19,11 @@
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
             android:layout_marginTop="@dimen/default_margin_half"
+            android:layout_marginEnd="@dimen/default_margin_half"
             android:layout_marginBottom="@dimen/default_margin_half"
             android:scaleType="centerCrop"
-            android:layout_marginEnd="@dimen/default_margin_half"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@mipmap/ic_launcher" />
 
@@ -51,6 +51,17 @@
             app:layout_constraintTop_toBottomOf="@id/text_place_title"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="تهران ونک " />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image_favorite"
+            android:layout_width="wrap_content"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin_half"
+            app:layout_constraintBottom_toBottomOf="@id/text_place_short_address"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_place_title"
+            app:srcCompat="@drawable/ic_baseline_favorite_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
