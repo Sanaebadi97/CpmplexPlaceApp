@@ -11,7 +11,7 @@ import info.sanaebadi.placeapp.mvvm.feature.place.view.viewHolder.PlaceViewHolde
 import info.sanaebadi.placeapp.mvvm.feature.place.view.viewHolder.PromotedViewHolder
 import info.sanaebadi.placeapp.mvvm.feature.place.view.viewHolder.base.BaseViewHolder
 
-class DataAdapter(private var adapterDataList: List<Any?> = emptyList()) :
+class DataAdapter(private var adapterDataList: List<Any> = emptyList()) :
     RecyclerView.Adapter<BaseViewHolder<*>>() {
 
     companion object {

@@ -15,6 +15,7 @@ import info.sanaebadi.domain.model.place.places.PlaceListModel
 import info.sanaebadi.placeapp.databinding.FragmentPlaceBinding
 import info.sanaebadi.placeapp.mvvm.base.BaseFragment
 import info.sanaebadi.placeapp.mvvm.feature.place.view.adapter.DataAdapter
+import info.sanaebadi.placeapp.mvvm.feature.place.view.adapter.PlaceAdapter
 import info.sanaebadi.placeapp.mvvm.feature.place.viewModel.places.PlaceViewModel
 import kotlinx.android.synthetic.main.fragment_place.*
 import javax.inject.Inject
@@ -62,7 +63,7 @@ class PlaceFragment : BaseFragment() {
 
     private fun setUpAdapter(data: List<PlaceItem?>) {
         setUpRecyclerview()
-        val adapter = DataAdapter(data)
+        val adapter = PlaceAdapter(data)
         binding?.recyclerPlaces?.adapter = adapter
     }
 
@@ -70,6 +71,7 @@ class PlaceFragment : BaseFragment() {
     private fun onRetryClick() {
         binding?.viewError?.buttonTryAgain?.setOnClickListener { v -> viewModel.getPlaces() }
     }
+
 
     private fun setUpObserver() {
         viewModel.place.observe(viewLifecycleOwner, Observer { mutableViewModelModel ->
