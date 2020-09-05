@@ -10,26 +10,26 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.android.support.AndroidSupportInjection
-import info.sanaebadi.domain.model.place.places.PlaceItem
-import info.sanaebadi.domain.model.place.places.PlaceListModel
-import info.sanaebadi.placeapp.databinding.FragmentPlaceBinding
+import info.sanaebadi.domain.model.place.promoted.PromotedItem
+import info.sanaebadi.domain.model.place.promoted.PromotedListModel
+import info.sanaebadi.placeapp.databinding.FragmentPromoteBinding
 import info.sanaebadi.placeapp.mvvm.base.BaseFragment
-import info.sanaebadi.placeapp.mvvm.feature.place.view.adapter.PlaceAdapter
-import info.sanaebadi.placeapp.mvvm.feature.place.viewModel.PlaceViewModel
+import info.sanaebadi.placeapp.mvvm.feature.place.view.adapter.PromotedAdapter
+import info.sanaebadi.placeapp.mvvm.feature.place.viewModel.PromotedViewModel
 import kotlinx.android.synthetic.main.fragment_place.*
 import javax.inject.Inject
 
-class PlaceFragment : BaseFragment() {
+class PromotedFragment : BaseFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private var binding: FragmentPlaceBinding? = null
+    private var binding: FragmentPromoteBinding? = null
 
-    private var data: PlaceListModel? = null
+    private var data: PromotedListModel? = null
 
-    private val viewModel: PlaceViewModel by lazy {
-        ViewModelProvider(requireActivity(), viewModelFactory).get(PlaceViewModel::class.java)
+    private val viewModel: PromotedViewModel by lazy {
+        ViewModelProvider(requireActivity(), viewModelFactory).get(PromotedViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,13 +42,13 @@ class PlaceFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentPlaceBinding.inflate(inflater, container, false)
+        binding = FragmentPromoteBinding.inflate(inflater, container, false)
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getPlaces()
+        viewModel.getPromoted()
         setUpObserver()
         onRetryClick()
 
@@ -60,20 +60,20 @@ class PlaceFragment : BaseFragment() {
         binding?.recyclerPlaces?.setHasFixedSize(true)
     }
 
-    private fun setUpAdapter(data: List<PlaceItem?>) {
+    private fun setUpAdapter(data: List<PromotedItem?>) {
         setUpRecyclerview()
-        val adapter = PlaceAdapter(data)
+        val adapter = PromotedAdapter(data)
         binding?.recyclerPlaces?.adapter = adapter
     }
 
     //TODO:ADD NETWORK
     private fun onRetryClick() {
-        binding?.viewError?.buttonTryAgain?.setOnClickListener { v -> viewModel.getPlaces() }
+        binding?.viewError?.buttonTryAgain?.setOnClickListener { v -> viewModel.getPromoted() }
     }
 
 
     private fun setUpObserver() {
-        viewModel.place.observe(viewLifecycleOwner, Observer { mutableViewModelModel ->
+        viewModel.promoted.observe(viewLifecycleOwner, Observer { mutableViewModelModel ->
 
             when {
                 mutableViewModelModel.isLoading() -> {
@@ -98,8 +98,8 @@ class PlaceFragment : BaseFragment() {
                     data = mutableViewModelModel.getData()
 
 
-                    if (data?.places?.size != 0) {
-                        setUpAdapter(data?.places!!)
+                    if (data?.promotedList?.size != 0) {
+                        setUpAdapter(data?.promotedList!!)
                     } else {
                         showEmptyView(binding?.viewEmpty?.viewEmpty)
                     }

@@ -7,4 +7,8 @@
         android:id="@+id/placeFragment"
         android:name="info.sanaebadi.placeapp.mvvm.feature.place.view.fragment.PlaceFragment"
         android:label="PlaceFragment" />
+    <fragment
+        android:id="@+id/promotedFragment"
+        android:name="info.sanaebadi.placeapp.mvvm.feature.place.view.fragment.PromotedFragment"
+        android:label="PromotedFragment" />
 </navigation>

@@ -7,6 +7,7 @@ import info.sanaebadi.domain.model.place.places.PlaceItem
 import info.sanaebadi.domain.model.place.promoted.PromotedItem
 import info.sanaebadi.placeapp.R
 import info.sanaebadi.placeapp.databinding.PlaceItemBinding
+import info.sanaebadi.placeapp.databinding.PromotedItemBinding
 import info.sanaebadi.placeapp.mvvm.feature.place.view.viewHolder.PlaceViewHolder
 import info.sanaebadi.placeapp.mvvm.feature.place.view.viewHolder.PromotedViewHolder
 import info.sanaebadi.placeapp.mvvm.feature.place.view.viewHolder.base.BaseViewHolder
@@ -23,7 +24,7 @@ class DataAdapter(private var adapterDataList: List<Any> = emptyList()) :
         return when (viewType) {
             TYPE_PROMOTED -> {
                 val promotedItemBinding =
-                    PlaceItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                    PromotedItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 PromotedViewHolder(promotedItemBinding)
             }
             TYPE_PLACES -> {

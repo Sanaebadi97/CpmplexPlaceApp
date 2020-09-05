@@ -1,4 +1,4 @@
-package info.sanaebadi.placeapp.mvvm.feature.place.viewModel.places
+package info.sanaebadi.placeapp.mvvm.feature.place.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import info.sanaebadi.domain.model.place.promoted.PromotedItem
-import info.sanaebadi.placeapp.databinding.PlaceItemBinding
+import info.sanaebadi.placeapp.databinding.PromotedItemBinding
 import info.sanaebadi.placeapp.mvvm.feature.place.view.viewHolder.PromotedViewHolder
 
 class PromotedAdapter(private var promotedList: List<PromotedItem?> = emptyList()) :
@@ -12,7 +12,7 @@ class PromotedAdapter(private var promotedList: List<PromotedItem?> = emptyList(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PromotedViewHolder {
         val promotedItemBinding =
-            PlaceItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            PromotedItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PromotedViewHolder(promotedItemBinding)
     }
 
