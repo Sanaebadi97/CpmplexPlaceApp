@@ -1,28 +1,28 @@
 package info.sanaebadi.data.mapper.place.promoted
 
-import info.sanaebadi.data.entity.place.places.PlacesItemEntity
+import info.sanaebadi.data.entity.place.promoted.PromotedItemEntity
 import info.sanaebadi.data.entity.place.promoted.PromotedListEntity
 import info.sanaebadi.data.mapper.base.DataLayerMapper
-import info.sanaebadi.domain.model.place.places.PlaceItem
+import info.sanaebadi.domain.model.place.promoted.PromotedItem
 import info.sanaebadi.domain.model.place.promoted.PromotedListModel
 import java.util.*
 import javax.inject.Inject
 
-class PromotedMapper @Inject constructor() : DataLayerMapper<PlacesItemEntity, PlaceItem> {
+class PromotedMapper @Inject constructor() : DataLayerMapper<PromotedItemEntity, PromotedItem> {
 
 
     fun toDomain(promoListEntity: PromotedListEntity): PromotedListModel? {
-        val promotedList: MutableList<PlaceItem?> = ArrayList<PlaceItem?>()
+        val promotedList: MutableList<PromotedItem?> = ArrayList<PromotedItem?>()
 
-        for (placeItem in promoListEntity.places!!) {
-            promotedList.add(toDomain(placeItem))
+        for (promotedItem in promoListEntity.places!!) {
+            promotedList.add(toDomain(promotedItem))
         }
 
         return PromotedListModel(promotedList)
     }
 
-    override fun toDomain(data: PlacesItemEntity?): PlaceItem {
-        return PlaceItem(
+    override fun toDomain(data: PromotedItemEntity?): PromotedItem {
+        return PromotedItem(
             score = data?.score,
             shortAddress = data?.shortAddress,
             bannerUrl = data?.bannerUrl,
@@ -33,7 +33,7 @@ class PromotedMapper @Inject constructor() : DataLayerMapper<PlacesItemEntity, P
         )
     }
 
-    override fun toEntity(d: PlaceItem?): PlacesItemEntity? {
+    override fun toEntity(d: PromotedItem?): PromotedItemEntity? {
         return null
     }
 }

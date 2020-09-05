@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:elevation="@dimen/default_margin_quarter"
-    android:padding="@dimen/default_margin_half"
+    android:padding="@dimen/default_margin_five_fourth"
     app:cardCornerRadius="@dimen/default_margin_half"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true">
@@ -16,32 +16,36 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/image_place_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
+            android:layout_marginTop="@dimen/default_margin_half"
+            android:layout_marginBottom="@dimen/default_margin_half"
+            android:scaleType="centerCrop"
             android:layout_marginEnd="@dimen/default_margin_half"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@mipmap/ic_launcher" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/text_place_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/default_margin"
-            android:fontFamily="@font/iransans_bold"
+            android:fontFamily="@font/iransans_medium"
             android:textSize="@dimen/text_size_large"
             app:layout_constraintEnd_toStartOf="@id/image_place_icon"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/image_place_icon"
             tools:text="مکان تپسی" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/text_place_short_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginTop="@dimen/default_margin_two_thirds"
             android:layout_marginEnd="@dimen/default_margin"
-            android:fontFamily="@font/iransans_bold"
-            android:textSize="@dimen/text_size_large"
+            android:fontFamily="@font/iransans_light"
+            android:textSize="@dimen/text_size_medium"
             app:layout_constraintBottom_toBottomOf="@id/image_place_icon"
             app:layout_constraintEnd_toStartOf="@id/image_place_icon"
             app:layout_constraintTop_toBottomOf="@id/text_place_title"

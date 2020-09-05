@@ -42,6 +42,9 @@ dependencies {
     implementation(Libraries.constraintLayout)
     implementation(Libraries.material)
 
+    implementation(Libraries.glide)
+    implementation(Libraries.glideCompiler)
+
     implementation(JetPackLibraries.lifecycleViewModel)
     implementation(JetPackLibraries.lifecycleLiveData)
 
