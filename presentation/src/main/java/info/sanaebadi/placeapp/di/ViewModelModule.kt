@@ -6,7 +6,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import info.sanaebadi.placeapp.mvvm.base.ViewModelFactory
-import info.sanaebadi.placeapp.mvvm.feature.place.viewModel.PlaceViewModel
+import info.sanaebadi.placeapp.mvvm.feature.place.viewModel.places.PlaceViewModel
 import javax.inject.Singleton
 
 @Module

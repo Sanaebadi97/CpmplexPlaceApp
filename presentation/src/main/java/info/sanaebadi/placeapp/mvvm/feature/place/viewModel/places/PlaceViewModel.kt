@@ -1,20 +1,18 @@
-package info.sanaebadi.placeapp.mvvm.feature.place.viewModel
+package info.sanaebadi.placeapp.mvvm.feature.place.viewModel.places
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import info.sanaebadi.domain.interactor.base.BaseSingleObserver
 import info.sanaebadi.domain.interactor.place.PlaceUseCase
 import info.sanaebadi.domain.model.place.places.PlaceListModel
-import info.sanaebadi.placeapp.mapper.place.PlacePresentationsMapper
 import info.sanaebadi.placeapp.mvvm.base.MutableViewModel
 import javax.inject.Inject
 
 class PlaceViewModel @Inject constructor(
     private val placeUseCase: PlaceUseCase,
-    private val mapper: PlacePresentationsMapper
 ) : ViewModel() {
 
-     var place = MutableLiveData<MutableViewModel<PlaceListModel>>()
+    var place = MutableLiveData<MutableViewModel<PlaceListModel>>()
 
 
     fun getPlaces() {

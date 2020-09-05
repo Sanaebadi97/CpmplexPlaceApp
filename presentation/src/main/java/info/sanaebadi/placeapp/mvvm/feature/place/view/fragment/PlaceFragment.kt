@@ -11,9 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.android.support.AndroidSupportInjection
 import info.sanaebadi.domain.model.place.places.PlaceListModel
 import info.sanaebadi.placeapp.databinding.FragmentPlaceBinding
-import info.sanaebadi.placeapp.model.place.PlaceListPresentation
 import info.sanaebadi.placeapp.mvvm.base.BaseFragment
-import info.sanaebadi.placeapp.mvvm.feature.place.viewModel.PlaceViewModel
+import info.sanaebadi.placeapp.mvvm.feature.place.viewModel.places.PlaceViewModel
 import kotlinx.android.synthetic.main.fragment_place.*
 import javax.inject.Inject
 
