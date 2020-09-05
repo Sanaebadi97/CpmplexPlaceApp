@@ -1,7 +1,9 @@
 <resources>
-    <string name="app_name">PlaceApp</string>
+    <string name="app_name">مکان های گردشگری</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="try_again">تلاش مجدد</string>
     <string name="promoted">تشویقی</string>
+    <string name="search">جستجو</string>
+    <string name="favourite">فیلتر مورد علاقه</string>
 </resources>
