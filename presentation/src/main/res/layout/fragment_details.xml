@@ -57,13 +57,26 @@
             app:layout_constraintTop_toTopOf="@id/text_place_title"
             tools:text="3.5 " />
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image_favorite"
+            android:layout_width="@dimen/default_margin_double"
+            android:layout_height="@dimen/default_margin_double"
+            android:visibility="gone"
+            android:layout_marginStart="@dimen/default_margin_two_thirds"
+            android:fontFamily="@font/iransans_light"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/default_margin_half"
+            app:layout_constraintTop_toBottomOf="@id/text_place_score"
+            app:layout_constraintTop_toTopOf="@id/text_place_short_address"
+            app:srcCompat="@drawable/ic_baseline_favorite_24" />
+
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/image_place_banner"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginStart="@dimen/default_margin_half"
-            android:layout_marginTop="@dimen/default_margin_half"
+            android:layout_marginTop="@dimen/default_margin"
             android:layout_marginEnd="@dimen/default_margin_half"
             android:scaleType="centerCrop"
             app:layout_constraintTop_toBottomOf="@id/text_place_short_address"
@@ -75,7 +88,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_margin_half"
-            android:layout_marginTop="@dimen/default_margin_half"
+            android:layout_marginTop="@dimen/default_margin"
             android:layout_marginEnd="@dimen/default_margin_half"
             android:fontFamily="@font/iransans_medium"
             android:paddingStart="@dimen/default_margin_half"

@@ -33,7 +33,7 @@ class PlaceAdapter(
             listener.onItemClick(position)
         }
 
-        onItemView.onFavoriteItem(holder.itemView.image_favorite , position)
+        onItemView.setFavoriteItem(holder.itemView.image_favorite , position)
 
     }
 
@@ -44,11 +44,13 @@ class PlaceAdapter(
     }
 
     interface OnItemView {
-        fun onFavoriteItem(view: View , position: Int)
+        fun setFavoriteItem(view: View, position: Int)
     }
 
     fun updateList(list: List<PlaceItem?>) {
         placeList = list
         notifyDataSetChanged()
     }
+
+
 }

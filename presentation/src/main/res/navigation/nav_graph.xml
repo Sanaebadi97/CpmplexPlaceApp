@@ -31,6 +31,9 @@
             android:name="placeBannerUrl"
             app:argType="string"
             app:nullable="true" />
+        <argument
+            android:name="isFav"
+            app:argType="boolean" />
 
 
     </fragment>

@@ -31,7 +31,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/view_search"
             android:layout_width="match_parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_margin_half"
             android:layout_marginTop="@dimen/default_margin_half"
@@ -39,6 +38,7 @@
             android:background="#F3F3F5"
             android:layoutDirection="rtl"
             android:padding="@dimen/default_margin_half"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -68,13 +68,15 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.button.MaterialButton
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switch_favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/default_margin_half"
-            android:text="@string/favourite"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:checked="false"
+            android:textOn="@string/favourite"
             app:layout_constraintBottom_toBottomOf="@id/view_search"
-            app:layout_constraintStart_toEndOf="@id/view_search"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/view_search" />
 
