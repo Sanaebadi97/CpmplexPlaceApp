@@ -21,6 +21,8 @@ class DetailsFragment : BaseFragment() {
     private var placeDescription: String? = null
     private var placeBannerUrl: String? = null
     private var placeScore: Double? = null
+    private var isFav: Boolean = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidSupportInjection.inject(this)
@@ -31,6 +33,7 @@ class DetailsFragment : BaseFragment() {
         placeDescription = requireArguments().getString("placeDescription")
         placeBannerUrl = requireArguments().getString("placeBannerUrl")
         placeScore = requireArguments().getDouble("placeScore")
+        isFav = requireArguments().getBoolean("isFav")
     }
 
 
@@ -60,6 +63,10 @@ class DetailsFragment : BaseFragment() {
                 .load(placeBannerUrl)
                 .placeholder(R.drawable.ic_launcher_background)
                 .into(binding?.imagePlaceBanner!!)
+        }
+
+        if (isFav) {
+            binding?.imageFavorite?.visibility = View.VISIBLE
         }
 
     }

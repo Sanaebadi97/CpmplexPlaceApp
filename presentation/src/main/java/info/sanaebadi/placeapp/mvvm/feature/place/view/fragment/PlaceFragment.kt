@@ -24,10 +24,14 @@ import info.sanaebadi.placeapp.mvvm.base.BaseFragment
 import info.sanaebadi.placeapp.mvvm.feature.place.view.adapter.PlaceAdapter
 import info.sanaebadi.placeapp.mvvm.feature.place.viewModel.PlaceViewModel
 import kotlinx.android.synthetic.main.fragment_place.*
-import java.util.*
 import javax.inject.Inject
 
 class PlaceFragment : BaseFragment(), PlaceAdapter.ItemClickListener, PlaceAdapter.OnItemView {
+
+
+    companion object {
+        const val TAG: String = "PlaceFragment"
+    }
 
     private var binding: FragmentPlaceBinding? = null
     private var navController: NavController? = null
@@ -40,9 +44,11 @@ class PlaceFragment : BaseFragment(), PlaceAdapter.ItemClickListener, PlaceAdapt
     private var placeDescription: String? = null
     private var placeBannerUrl: String? = null
     private var placeScore: Double? = null
+    private var isFav: Boolean = false
 
     private var adapter: PlaceAdapter? = null
     private var favoriteIds: Int? = null
+
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -75,7 +81,23 @@ class PlaceFragment : BaseFragment(), PlaceAdapter.ItemClickListener, PlaceAdapt
         onRetryClick()
 
         filterList()
+        filterFavorite()
 
+    }
+
+    private fun filterFavorite() {
+        binding?.switchFavorite?.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                for (i in 0 until favoriteData?.favoriteIds?.size!!) {
+                    for (j in 0 until (data?.places?.size!!)) {
+                        getFavoriteFilter(i, j)
+
+                    }
+                }
+            } else {
+                setUpAdapter(data?.places!!)
+            }
+        }
     }
 
     private fun filterList() {
@@ -158,10 +180,6 @@ class PlaceFragment : BaseFragment(), PlaceAdapter.ItemClickListener, PlaceAdapt
         })
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        binding = null
-    }
 
     override fun showLoading(view: View?) {
         super.showLoading(view)
@@ -190,9 +208,6 @@ class PlaceFragment : BaseFragment(), PlaceAdapter.ItemClickListener, PlaceAdapt
         super.hideErrorView(view)
     }
 
-    companion object {
-        const val TAG: String = "PlaceFragment"
-    }
 
     override fun onItemClick(position: Int) {
         placeTitle = data?.places?.get(position)?.title
@@ -207,6 +222,7 @@ class PlaceFragment : BaseFragment(), PlaceAdapter.ItemClickListener, PlaceAdapt
             "placeDescription" to placeDescription,
             "placeScore" to placeScore,
             "placeBannerUrl" to placeBannerUrl,
+            "isFav" to isFav
         )
         //navigate to details fragment with bundle
         navController!!.navigate(R.id.action_placeFragment_to_detailsFragment, bundle)
@@ -216,7 +232,7 @@ class PlaceFragment : BaseFragment(), PlaceAdapter.ItemClickListener, PlaceAdapt
 
 
     fun filter(text: CharSequence?) {
-        val temp: MutableList<PlaceItem?> = ArrayList<PlaceItem?>()
+        val temp: MutableList<PlaceItem?> = ArrayList()
         for (placeItem: PlaceItem? in data?.places!!) {
             if (placeItem?.title?.contains(text!!)!! || placeItem.shortAddress?.contains(text!!)!!) {
                 temp.add(placeItem)
@@ -225,14 +241,36 @@ class PlaceFragment : BaseFragment(), PlaceAdapter.ItemClickListener, PlaceAdapt
         adapter?.updateList(temp)
     }
 
-    override fun onFavoriteItem(view: View, position: Int) {
+    private fun getFavoriteFilter(i: Int, j: Int) {
+        val temp: MutableList<PlaceItem?> = ArrayList()
+        for (placeItem: PlaceItem? in data?.places!!) {
+            if (favoriteData?.favoriteIds!![i]!! == data?.places!![j]?.id)
+                temp.add(placeItem)
+            continue
+
+        }
+        adapter?.updateList(temp)
+    }
+
+    override fun setFavoriteItem(view: View, position: Int) {
         if (favoriteData?.favoriteIds?.size != 0) {
             for (i in 0 until favoriteData?.favoriteIds?.size!!) {
-                if (favoriteData?.favoriteIds!![i]!! == data?.places!![position]?.id)
+                if (favoriteData?.favoriteIds!![i]!! == data?.places!![position]?.id) {
                     view.visibility = View.VISIBLE
-                continue
+                    isFav = true
+                    continue
+                } else {
+                    isFav = false
+                    continue
+                }
             }
         }
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 
 }
