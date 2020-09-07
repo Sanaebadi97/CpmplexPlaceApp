@@ -3,7 +3,6 @@ package info.sanaebadi.data.repository.dataSource.place
 import info.sanaebadi.data.mapper.place.favorite.FavoriteDataMapper
 import info.sanaebadi.data.mapper.place.places.PlaceDataMapper
 import info.sanaebadi.data.mapper.place.places.PromotedMapper
-import info.sanaebadi.data.repository.dataSource.place.PlaceDataSourceFactory
 import info.sanaebadi.domain.model.place.favorite.FavoriteListItem
 import info.sanaebadi.domain.model.place.places.PlaceListModel
 import info.sanaebadi.domain.model.place.promoted.PromotedListModel
@@ -14,8 +13,8 @@ import javax.inject.Inject
 
 class PlaceDataRepository @Inject constructor(
     private val placeDataSourceFactory: PlaceDataSourceFactory,
-    private val placeDataMapper: PlaceDataMapper,
     private val promotedMapper: PromotedMapper,
+    private val placeDataMapper: PlaceDataMapper,
     private val favoriteDataMapper: FavoriteDataMapper
 ) : PlaceRepository {
 

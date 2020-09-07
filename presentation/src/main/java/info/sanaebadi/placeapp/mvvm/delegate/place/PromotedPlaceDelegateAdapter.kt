@@ -4,8 +4,8 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import info.sanaebadi.domain.model.place.promoted.PromotedItem
 import info.sanaebadi.placeapp.databinding.PromotedItemBinding
-import info.sanaebadi.placeapp.model.promoted.PromotedItemPresentation
 import info.sanaebadi.placeapp.mvvm.base.ViewType
 import info.sanaebadi.placeapp.mvvm.base.ViewTypeDelegateAdapter
 import info.sanaebadi.placeapp.util.isLollipopOrAbove
@@ -21,13 +21,13 @@ class PromotedPlaceDelegateAdapter : ViewTypeDelegateAdapter {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, item: ViewType) {
         holder as PromotedPlaceViewHolder
-        holder.bind(item as PromotedItemPresentation)
+        holder.bind(item as PromotedItem)
     }
 
     class PromotedPlaceViewHolder(private val promotedItemBinding: PromotedItemBinding) :
         RecyclerView.ViewHolder(promotedItemBinding.root) {
         @SuppressLint("NewApi")
-        fun bind(promoted: PromotedItemPresentation) = with(itemView) {
+        fun bind(promoted: PromotedItem) = with(itemView) {
             promotedItemBinding.imagePlaceIcon.loadCircleImage(promoted.iconUrl!!)
             promotedItemBinding.textPlaceTitle.text = promoted.title
             promotedItemBinding.textPlaceShortAddress.text = promoted.shortAddress

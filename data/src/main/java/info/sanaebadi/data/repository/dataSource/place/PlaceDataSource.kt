@@ -6,7 +6,7 @@ import info.sanaebadi.data.entity.place.promoted.PromotedListEntity
 import io.reactivex.Single
 
 interface PlaceDataSource {
-    fun getPlaces(): Single<PlaceListEntity>
     fun getPromoted(): Single<PromotedListEntity>
+    fun getPlaces(): Single<PlaceListEntity>
     fun getFavorites(): Single<FavoriteEntity>
 }

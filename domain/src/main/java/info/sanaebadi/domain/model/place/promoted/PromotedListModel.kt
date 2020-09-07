@@ -1,15 +1,10 @@
 package info.sanaebadi.domain.model.place.promoted
 
-import info.sanaebadi.domain.interactor.base.ViewType
 import info.sanaebadi.domain.model.base.BaseDomainModel
 
 data class PromotedListModel(
 	val promotedList: MutableList<PromotedItem>? = null
-) : BaseDomainModel , ViewType {
-	override fun getViewType(): Int {
-		TODO("Not yet implemented")
-	}
-}
+) : BaseDomainModel
 
 data class PromotedItem(
 	val score: Double? = null,
@@ -19,4 +14,6 @@ data class PromotedItem(
 	val id: Int? = null,
 	val iconUrl: String? = null,
 	val title: String? = null
-) : BaseDomainModel
+)
+
+

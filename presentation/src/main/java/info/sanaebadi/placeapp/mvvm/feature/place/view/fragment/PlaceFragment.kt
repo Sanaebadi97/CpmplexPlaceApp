@@ -8,7 +8,6 @@ import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.MergeAdapter
 import dagger.android.support.DaggerFragment
 import info.sanaebadi.domain.model.place.PlaceData
 import info.sanaebadi.domain.model.place.favorite.FavoriteListItem
@@ -18,8 +17,6 @@ import info.sanaebadi.placeapp.R
 import info.sanaebadi.placeapp.databinding.FragmentPlaceBinding
 import info.sanaebadi.placeapp.mvvm.base.PlacesView
 import info.sanaebadi.placeapp.mvvm.feature.place.adapter.PlaceAdapter
-import info.sanaebadi.placeapp.mvvm.feature.place.view.adapter.PlaceAdapter
-import info.sanaebadi.placeapp.mvvm.feature.place.view.adapter.PromotedAdapter
 import info.sanaebadi.placeapp.mvvm.feature.place.viewModel.PlaceViewModel
 import javax.inject.Inject
 
@@ -113,16 +110,22 @@ class PlaceFragment : DaggerFragment(), PlacesView {
         }
     }
 
+
     override fun showError(error: String) {
-        TODO("Not yet implemented")
+        binding?.viewError?.viewError?.visibility = View.VISIBLE
+        binding?.viewError?.textErrorMessage?.text = error
+    }
+
+    override fun showEmpty() {
+        binding?.viewEmpty?.viewEmpty?.visibility = View.VISIBLE
     }
 
     override fun showLoading() {
-        TODO("Not yet implemented")
+        placeAdapter.addLoadingItem()
     }
 
     override fun hideLoading() {
-        TODO("Not yet implemented")
+        placeAdapter.removeLoadingItem()
     }
 
 

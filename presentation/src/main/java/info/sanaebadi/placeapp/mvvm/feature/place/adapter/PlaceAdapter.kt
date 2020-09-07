@@ -3,10 +3,11 @@ package info.sanaebadi.placeapp.mvvm.feature.place.adapter
 import android.view.ViewGroup
 import androidx.collection.SparseArrayCompat
 import androidx.recyclerview.widget.RecyclerView
-import info.sanaebadi.domain.model.place.places.PlaceListModel
+import info.sanaebadi.domain.model.place.promoted.PromotedListModel
 import info.sanaebadi.placeapp.mvvm.base.AdapterConstants
 import info.sanaebadi.placeapp.mvvm.base.ViewType
 import info.sanaebadi.placeapp.mvvm.base.ViewTypeDelegateAdapter
+import info.sanaebadi.placeapp.mvvm.delegate.place.LoadingDelegateAdapter
 import info.sanaebadi.placeapp.mvvm.delegate.place.PlaceDelegateAdapter
 import info.sanaebadi.placeapp.mvvm.delegate.place.PromotedPlaceDelegateAdapter
 
@@ -16,9 +17,14 @@ class PlaceAdapter(listener: (Int) -> Unit) :
     private var items: MutableList<ViewType> = ArrayList()
     private var delegateAdapters = SparseArrayCompat<ViewTypeDelegateAdapter>()
 
+    private val loadingItem = object : ViewType {
+        override fun getViewType() = AdapterConstants.LOADING
+    }
+
     init {
         delegateAdapters.put(AdapterConstants.PLACE_PROMOTED, PromotedPlaceDelegateAdapter())
         delegateAdapters.put(AdapterConstants.PLACE_LIST, PlaceDelegateAdapter(listener))
+        delegateAdapters.put(AdapterConstants.LOADING, LoadingDelegateAdapter())
     }
 
 
@@ -40,16 +46,26 @@ class PlaceAdapter(listener: (Int) -> Unit) :
     }
 
 
+    fun addLoadingItem() {
+        items.add(loadingItem)
+    }
+
+    fun removeLoadingItem() {
+        items.remove(loadingItem)
+    }
+
     fun updateList(list: MutableList<ViewType>) {
         items = list
         notifyDataSetChanged()
     }
 
 
-     fun addItemToList(items: List<ViewType>) {
+    fun addItemToList(items: List<ViewType>) {
         if (items.isNotEmpty()) {
             addItems(items)
         }
     }
+
+
 
 }

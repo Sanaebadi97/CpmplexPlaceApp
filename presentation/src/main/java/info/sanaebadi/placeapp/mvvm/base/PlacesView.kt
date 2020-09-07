@@ -7,4 +7,5 @@ interface PlacesView {
     fun showError(error: String)
     fun showLoading()
     fun hideLoading()
+    fun showEmpty()
 }
