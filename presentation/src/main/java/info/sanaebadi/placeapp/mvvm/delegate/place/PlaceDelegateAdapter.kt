@@ -6,12 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import info.sanaebadi.domain.model.base.ViewType
 import info.sanaebadi.domain.model.place.places.PlaceItem
+import info.sanaebadi.domain.model.place.promoted.PromotedItem
 import info.sanaebadi.placeapp.databinding.PlaceItemBinding
 import info.sanaebadi.placeapp.mvvm.base.ViewTypeDelegateAdapter
 import info.sanaebadi.placeapp.util.loadCircleImage
 
 class PlaceDelegateAdapter(
-    private val listener: (PlaceItem) -> Unit,
+    private val listener: (PlaceItem, PromotedItem) -> Unit,
 ) :
     ViewTypeDelegateAdapter {
 
@@ -30,13 +31,26 @@ class PlaceDelegateAdapter(
         RecyclerView.ViewHolder(placeItemBinding.root) {
         @SuppressLint("NewApi")
         fun bind(
-            place: PlaceItem, listener: (PlaceItem) -> Unit,
+            place: PlaceItem, listener: (PlaceItem, PromotedItem) -> Unit,
         ) = with(itemView) {
             placeItemBinding.imagePlaceIcon.loadCircleImage(place.iconUrl!!)
             placeItemBinding.textPlaceTitle.text = place.title
             placeItemBinding.textPlaceShortAddress.text = place.shortAddress
 
-            setOnClickListener { listener(place) }
+            setOnClickListener {
+                listener(
+                    place,
+                    PromotedItem(
+                        place.score,
+                        place.shortAddress,
+                        place.bannerUrl,
+                        place.description,
+                        place.id,
+                        place.iconUrl,
+                        place.title
+                    )
+                )
+            }
 
         }
     }

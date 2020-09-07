@@ -51,13 +51,19 @@ class PlaceFragment : DaggerFragment(), PlacesView  {
     lateinit var viewModel: PlaceViewModel
 
     private val placeAdapter by lazy {
-        PlaceAdapter { placeData , position ->
+        PlaceAdapter { placeData , promoted ->
 
-            placeTitle = placeData.places[position].title
-            placeShortAddress = placeData.places[position].shortAddress
-            placeDescription = placeData.places[position].description
-            placeScore = placeData.places[position].score
-            placeBannerUrl = placeData.places[position].bannerUrl
+            placeTitle = placeData.title
+            placeShortAddress = placeData.shortAddress
+            placeDescription = placeData.description
+            placeScore = placeData.score
+            placeBannerUrl = placeData.bannerUrl
+
+            placeTitle = promoted.title
+            placeShortAddress = promoted.shortAddress
+            placeDescription = promoted.description
+            placeScore = promoted.score
+            placeBannerUrl = promoted.bannerUrl
 
             val bundle = bundleOf(
                 "placeTitle" to placeTitle,
