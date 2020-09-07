@@ -25,7 +25,7 @@ import info.sanaebadi.placeapp.mvvm.feature.place.adapter.PlaceAdapter
 import info.sanaebadi.placeapp.mvvm.feature.place.viewModel.PlaceViewModel
 import javax.inject.Inject
 
-class PlaceFragment : DaggerFragment(), PlacesView {
+class PlaceFragment : DaggerFragment(), PlacesView  {
 
 
     companion object {
@@ -51,13 +51,13 @@ class PlaceFragment : DaggerFragment(), PlacesView {
     lateinit var viewModel: PlaceViewModel
 
     private val placeAdapter by lazy {
-        PlaceAdapter { placeItem ->
+        PlaceAdapter { placeData , position ->
 
-            placeTitle = placeItem.title
-            placeShortAddress = placeItem.shortAddress
-            placeDescription = placeItem.description
-            placeScore = placeItem.score
-            placeBannerUrl = placeItem.bannerUrl
+            placeTitle = placeData.places[position].title
+            placeShortAddress = placeData.places[position].shortAddress
+            placeDescription = placeData.places[position].description
+            placeScore = placeData.places[position].score
+            placeBannerUrl = placeData.places[position].bannerUrl
 
             val bundle = bundleOf(
                 "placeTitle" to placeTitle,
@@ -170,6 +170,7 @@ class PlaceFragment : DaggerFragment(), PlacesView {
     override fun hideLoading() {
         placeAdapter.removeLoadingItem()
     }
+
 
 
 }

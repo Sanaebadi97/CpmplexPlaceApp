@@ -59,9 +59,6 @@ class DetailsFragment : BaseFragment() {
 
         binding?.imagePlaceBanner?.loadUrl(placeBannerUrl!!)
 
-        if (isFav) {
-            binding?.imageFavorite?.visibility = View.VISIBLE
-        }
 
     }
 
