@@ -1,6 +1,5 @@
 package info.sanaebadi.placeapp.mvvm.feature.place.adapter
 
-import android.view.View
 import android.view.ViewGroup
 import androidx.collection.SparseArrayCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +13,7 @@ import info.sanaebadi.placeapp.mvvm.delegate.place.PlaceDelegateAdapter
 import info.sanaebadi.placeapp.mvvm.delegate.place.PromotedPlaceDelegateAdapter
 
 class PlaceAdapter(
-    listener: (PlaceItem) -> Unit
+    listener: (PlaceItem, PromotedItem) -> Unit
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -28,7 +27,7 @@ class PlaceAdapter(
     init {
         delegateAdapters.put(
             AdapterConstants.PLACE_PROMOTED,
-            PromotedPlaceDelegateAdapter()
+            PromotedPlaceDelegateAdapter(listener)
         )
         delegateAdapters.put(AdapterConstants.PLACE_LIST, PlaceDelegateAdapter(listener))
         delegateAdapters.put(AdapterConstants.LOADING, LoadingDelegateAdapter())
@@ -65,7 +64,6 @@ class PlaceAdapter(
         items = list
         notifyDataSetChanged()
     }
-
 
 
     fun addItemsToList(items: List<ViewType>) {
