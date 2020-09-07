@@ -9,6 +9,7 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import info.sanaebadi.placeapp.R
 import info.sanaebadi.placeapp.global.PlaceApplication
 
 fun ViewGroup.inflate(layoutRes: Int): View {
@@ -16,10 +17,14 @@ fun ViewGroup.inflate(layoutRes: Int): View {
 }
 
 fun ImageView.loadUrl(url: String) {
-    Glide.with(context).load(url).into(this)
+    Glide.with(context).load(url).apply(RequestOptions().error(R.mipmap.ic_launcher)).into(this)
 }
+
 fun ImageView.loadCircleImage(url: String) {
-    Glide.with(context).load(url).apply(RequestOptions.circleCropTransform()).into(this)
+    Glide.with(context).load(url).apply(
+        RequestOptions.circleCropTransform()
+            .error(R.mipmap.ic_launcher_round)
+    ).into(this)
 }
 
 fun isLollipopOrAbove(func: () -> Unit) {

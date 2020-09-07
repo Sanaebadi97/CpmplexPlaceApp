@@ -5,11 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.NavController
-import com.bumptech.glide.Glide
 import dagger.android.support.AndroidSupportInjection
-import info.sanaebadi.placeapp.R
 import info.sanaebadi.placeapp.databinding.FragmentDetailsBinding
 import info.sanaebadi.placeapp.mvvm.base.BaseFragment
+import info.sanaebadi.placeapp.util.loadUrl
 
 class DetailsFragment : BaseFragment() {
 
@@ -58,12 +57,7 @@ class DetailsFragment : BaseFragment() {
         binding?.textPlaceShortAddress?.text = placeShortAddress
         binding?.textPlaceScore?.text = placeScore.toString()
 
-        activity?.let {
-            Glide.with(it)
-                .load(placeBannerUrl)
-                .placeholder(R.drawable.ic_launcher_background)
-                .into(binding?.imagePlaceBanner!!)
-        }
+        binding?.imagePlaceBanner?.loadUrl(placeBannerUrl!!)
 
         if (isFav) {
             binding?.imageFavorite?.visibility = View.VISIBLE

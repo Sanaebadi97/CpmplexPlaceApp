@@ -61,14 +61,11 @@ class PlaceAdapter(
         items.remove(loadingItem)
     }
 
-    fun updateList(list: MutableList<PlaceItem>) {
-        items = list.toMutableList()
+    fun updateList(list: MutableList<ViewType>) {
+        items = list
         notifyDataSetChanged()
     }
-    fun updateProList(list: MutableList<PromotedItem>) {
-        items = list.toMutableList()
-        notifyDataSetChanged()
-    }
+
 
 
     fun addItemsToList(items: List<ViewType>) {

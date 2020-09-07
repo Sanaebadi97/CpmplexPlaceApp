@@ -3,6 +3,7 @@ package info.sanaebadi.placeapp.mvvm.feature.place.view.fragment
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
+import info.sanaebadi.domain.model.base.ViewType
 import info.sanaebadi.domain.model.place.PlaceData
 import info.sanaebadi.domain.model.place.favorite.FavoriteListItem
 import info.sanaebadi.domain.model.place.places.PlaceItem
@@ -43,6 +45,7 @@ class PlaceFragment : DaggerFragment(), PlacesView {
     private var placeScore: Double? = null
     private var isFav: Boolean = false
 
+    private var fullData: MutableList<PlaceData> = ArrayList<PlaceData>()
 
     @Inject
     lateinit var viewModel: PlaceViewModel
@@ -110,10 +113,13 @@ class PlaceFragment : DaggerFragment(), PlacesView {
         with(placeAdapter) {
             addItemsToList(places.promotedList)
             addItemsToList(places.places)
-            favoriteData = places.favoriteIds
             notifyDataSetChanged()
 
             filterList(places)
+            fullData.add(PlaceData(places.promotedList, places.places, places.favoriteIds))
+            Log.i(TAG , "FULL LIST $fullData")
+
+
         }
     }
 
@@ -138,7 +144,7 @@ class PlaceFragment : DaggerFragment(), PlacesView {
         places: PlaceData,
         s: Editable
     ) {
-        val temp: MutableList<PlaceItem> = ArrayList()
+        val temp: MutableList<ViewType> = ArrayList()
         for (placeItem: PlaceItem? in places.places) {
             if (placeItem?.title?.contains(s.toString())!!) {
                 temp.add(placeItem)
