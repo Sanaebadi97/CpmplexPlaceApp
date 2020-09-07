@@ -20,6 +20,7 @@ dependencies {
 
     implementation(RXLibraries.rxAndroid)
     implementation(RXLibraries.rxJava)
+    implementation(RXLibraries.rxKotlin)
 
     testImplementation(TestLibraries.junit4)
 }

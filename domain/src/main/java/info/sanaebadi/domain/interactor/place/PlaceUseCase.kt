@@ -1,20 +1,36 @@
 package info.sanaebadi.domain.interactor.place
 
-import info.sanaebadi.domain.executor.PostExecutionThread
-import info.sanaebadi.domain.executor.ThreadExecutor
-import info.sanaebadi.domain.interactor.base.SingleUseCase
+import info.sanaebadi.domain.model.place.PlaceData
+import info.sanaebadi.domain.model.place.favorite.FavoriteListItem
 import info.sanaebadi.domain.model.place.places.PlaceListModel
+import info.sanaebadi.domain.model.place.promoted.PromotedListModel
 import info.sanaebadi.domain.repository.place.places.PlaceRepository
 import io.reactivex.Single
+import io.reactivex.functions.Function3
 import javax.inject.Inject
 
-class PlaceUseCase @Inject constructor(
-    private val threadExecutor: ThreadExecutor,
-    private val postExecutionThread: PostExecutionThread,
-    private val placeRepository: PlaceRepository,
-) : SingleUseCase<PlaceListModel, String>(threadExecutor, postExecutionThread) {
+class PlaceUseCase @Inject constructor(private val placeRepository: PlaceRepository) {
 
-    override fun buildUseCaseSingle(params: String): Single<PlaceListModel> {
-        return placeRepository.getPlaces()
+    fun execute(): Single<PlaceData> {
+        return Single.zip(
+            placeRepository.getPromoted(),
+            placeRepository.getPlaces(),
+            placeRepository.getFavorites(),
+            Function3<PromotedListModel, PlaceListModel, FavoriteListItem, PlaceData> { promoted, places, favorite ->
+                createPlaceDataModel(promoted, places, favorite)
+            })
+    }
+
+
+    private fun createPlaceDataModel(
+        promotedItems: PromotedListModel,
+        placeItems: PlaceListModel,
+        favoriteListItem: FavoriteListItem,
+    ): PlaceData {
+        val promotedModel = promotedItems
+        val placesModel = placeItems
+        val favoriteModel = favoriteListItem
+
+        return PlaceData(promotedModel, placesModel, favoriteModel)
     }
 }

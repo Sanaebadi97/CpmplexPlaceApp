@@ -38,6 +38,7 @@ object Libraries {
         const val materialVersion = "1.3.0-alpha02"
         const val arrowVersion = "1.0.0"
         const val glideVersion = "4.11.0"
+        const val recyclerViewVersion = "1.2.0-alpha02"
 
     }
 
@@ -50,6 +51,7 @@ object Libraries {
     const val arrow = "com.fernandocejas:arrow:${Versions.arrowVersion}"
     const val glide = "com.github.bumptech.glide:glide:${Versions.glideVersion}"
     const val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.glideVersion}"
+    const val recyclerView = "androidx.recyclerview:recyclerview:${Versions.recyclerViewVersion}"
 
 
 }
@@ -111,10 +113,12 @@ object RXLibraries {
     private object Versions {
         const val rxAndroidVersion = "2.1.1"
         const val rxJavaVersion = "2.2.10"
+        const val rxKotlinVersion = "3.0.0"
     }
 
     const val rxAndroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxAndroidVersion}"
     const val rxJava = "io.reactivex.rxjava2:rxjava:${Versions.rxJavaVersion}"
+    const val rxKotlin = "io.reactivex.rxjava3:rxkotlin:${Versions.rxKotlinVersion}"
 }
 
 object DaggerLib {

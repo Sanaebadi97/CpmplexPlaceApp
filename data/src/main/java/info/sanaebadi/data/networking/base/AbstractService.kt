@@ -1,6 +1,7 @@
 package info.sanaebadi.data.networking.base
 
 import info.sanaebadi.data.BuildConfig
+import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -31,9 +32,9 @@ abstract class AbstractService<S>(
             .connectTimeout(TIME_OUT_MIL_SECS, TimeUnit.SECONDS)
             .build()
         val retrofitBuilder = Retrofit.Builder().baseUrl(baseUrl)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(MoshiConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
         return retrofitBuilder.client(client).build().create(serviceType!!)
     }
 

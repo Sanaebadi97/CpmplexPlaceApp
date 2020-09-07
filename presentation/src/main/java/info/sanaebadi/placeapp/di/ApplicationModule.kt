@@ -4,14 +4,10 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import info.sanaebadi.data.executor.JobExecutor
-import info.sanaebadi.data.repository.dataSource.place.favorite.FavoriteDataRepository
-import info.sanaebadi.data.repository.dataSource.place.places.PlaceDataRepository
-import info.sanaebadi.data.repository.dataSource.place.promoted.PromotedDataRepository
+import info.sanaebadi.data.repository.dataSource.place.PlaceDataRepository
 import info.sanaebadi.domain.executor.PostExecutionThread
 import info.sanaebadi.domain.executor.ThreadExecutor
-import info.sanaebadi.domain.repository.place.favorite.FavoriteRepository
 import info.sanaebadi.domain.repository.place.places.PlaceRepository
-import info.sanaebadi.domain.repository.place.promoted.PromotedRepository
 import info.sanaebadi.placeapp.executors.UIThread
 import info.sanaebadi.placeapp.global.PlaceApplication
 import javax.inject.Singleton
@@ -43,18 +39,6 @@ class ApplicationModule {
     @Singleton
     fun providePlaceRepository(placeDataRepository: PlaceDataRepository): PlaceRepository {
         return placeDataRepository
-    }
-
-    @Provides
-    @Singleton
-    fun provideFavoriteDataRepository(favoriteDataRepository: FavoriteDataRepository): FavoriteRepository {
-        return favoriteDataRepository
-    }
-
-    @Provides
-    @Singleton
-    fun providePromotedRepository(promotedDataRepository: PromotedDataRepository): PromotedRepository {
-        return promotedDataRepository
     }
 
 

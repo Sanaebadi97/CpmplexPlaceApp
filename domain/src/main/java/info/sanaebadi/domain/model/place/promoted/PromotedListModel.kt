@@ -3,7 +3,7 @@ package info.sanaebadi.domain.model.place.promoted
 import info.sanaebadi.domain.model.base.BaseDomainModel
 
 data class PromotedListModel(
-	val promotedList: MutableList<PromotedItem?>? = null
+	val promotedList: MutableList<PromotedItem>? = null
 ) : BaseDomainModel
 
 data class PromotedItem(

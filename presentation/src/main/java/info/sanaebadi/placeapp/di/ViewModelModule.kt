@@ -7,7 +7,6 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import info.sanaebadi.placeapp.mvvm.base.ViewModelFactory
 import info.sanaebadi.placeapp.mvvm.feature.place.viewModel.PlaceViewModel
-import info.sanaebadi.placeapp.mvvm.feature.place.viewModel.PromotedViewModel
 import javax.inject.Singleton
 
 @Module
@@ -22,8 +21,4 @@ abstract class ViewModelModule {
     @ViewModelKey(PlaceViewModel::class)
     internal abstract fun providesPlaceViewModel(viewModel: PlaceViewModel): ViewModel
 
-    @Binds
-    @IntoMap
-    @ViewModelKey(PromotedViewModel::class)
-    internal abstract fun providesPromotedViewModel(viewModel: PromotedViewModel): ViewModel
 }

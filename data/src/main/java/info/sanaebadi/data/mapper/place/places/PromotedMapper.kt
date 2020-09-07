@@ -1,4 +1,4 @@
-package info.sanaebadi.data.mapper.place.promoted
+package info.sanaebadi.data.mapper.place.places
 
 import info.sanaebadi.data.entity.place.promoted.PromotedItemEntity
 import info.sanaebadi.data.entity.place.promoted.PromotedListEntity
@@ -12,10 +12,10 @@ class PromotedMapper @Inject constructor() : DataLayerMapper<PromotedItemEntity,
 
 
     fun toDomain(promoListEntity: PromotedListEntity): PromotedListModel? {
-        val promotedList: MutableList<PromotedItem?> = ArrayList<PromotedItem?>()
+        val promotedList: MutableList<PromotedItem>? = ArrayList<PromotedItem>()
 
         for (promotedItem in promoListEntity.places!!) {
-            promotedList.add(toDomain(promotedItem))
+            promotedList?.add(toDomain(promotedItem))
         }
 
         return PromotedListModel(promotedList)

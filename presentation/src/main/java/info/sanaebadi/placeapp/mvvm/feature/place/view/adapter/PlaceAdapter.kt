@@ -1,24 +1,19 @@
 package info.sanaebadi.placeapp.mvvm.feature.place.view.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import info.sanaebadi.domain.model.place.places.PlaceItem
 import info.sanaebadi.placeapp.databinding.PlaceItemBinding
 import info.sanaebadi.placeapp.mvvm.feature.place.view.viewHolder.PlaceViewHolder
+import info.sanaebadi.placeapp.mvvm.ui.`interface`.OnItemClickListener
+import info.sanaebadi.placeapp.mvvm.ui.`interface`.OnViewListener
 import kotlinx.android.synthetic.main.place_item.view.*
 
 class PlaceAdapter(
-    private var onItemView: OnItemView,
-    private var listener: ItemClickListener,
     private var placeList: List<PlaceItem?> = emptyList()
 ) :
     RecyclerView.Adapter<PlaceViewHolder>() {
-
-    companion object {
-        var listener: ItemClickListener? = null
-    }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaceViewHolder {
@@ -30,22 +25,15 @@ class PlaceAdapter(
     override fun onBindViewHolder(holder: PlaceViewHolder, position: Int) {
         holder.bind(placeList[position]!!)
         holder.itemView.setOnClickListener {
-            listener.onItemClick(position)
+//            listener.onItemClick(position)
         }
 
-        onItemView.setFavoriteItem(holder.itemView.image_favorite , position)
+//        onViewListener.setFavoriteItem(holder.itemView.image_favorite, position)
 
     }
 
     override fun getItemCount() = placeList.size
 
-    interface ItemClickListener {
-        fun onItemClick(position: Int)
-    }
-
-    interface OnItemView {
-        fun setFavoriteItem(view: View, position: Int)
-    }
 
     fun updateList(list: List<PlaceItem?>) {
         placeList = list
