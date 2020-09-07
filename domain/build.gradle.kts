@@ -20,9 +20,11 @@ dependencies {
 
     implementation(RXLibraries.rxAndroid)
     implementation(RXLibraries.rxJava)
+    implementation(RXLibraries.rxKotlin)
 
     testImplementation(TestLibraries.junit4)
 }
+
 
 // compile bytecode to java 8 (default is java 6)
 tasks.withType<KotlinCompile> {

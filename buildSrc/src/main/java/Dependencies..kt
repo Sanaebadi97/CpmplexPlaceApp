@@ -109,12 +109,14 @@ object Networking {
 
 object RXLibraries {
     private object Versions {
-        const val rxAndroidVersion = "2.1.1"
-        const val rxJavaVersion = "2.2.10"
+        const val rxAndroidVersion = "2.0.2"
+        const val rxJavaVersion = "2.1.13"
+        const val rxKotlinVersion = "3.0.0"
     }
 
     const val rxAndroid = "io.reactivex.rxjava2:rxandroid:${Versions.rxAndroidVersion}"
     const val rxJava = "io.reactivex.rxjava2:rxjava:${Versions.rxJavaVersion}"
+    const val rxKotlin = "io.reactivex.rxjava3:rxkotlin:${Versions.rxKotlinVersion}"
 }
 
 object DaggerLib {

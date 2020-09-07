@@ -4,16 +4,16 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import info.sanaebadi.data.executor.JobExecutor
-import info.sanaebadi.data.repository.dataSource.place.favorite.FavoriteDataRepository
-import info.sanaebadi.data.repository.dataSource.place.places.PlaceDataRepository
-import info.sanaebadi.data.repository.dataSource.place.promoted.PromotedDataRepository
+import info.sanaebadi.data.repository.dataSource.place.PlaceDataRepository
 import info.sanaebadi.domain.executor.PostExecutionThread
 import info.sanaebadi.domain.executor.ThreadExecutor
-import info.sanaebadi.domain.repository.place.favorite.FavoriteRepository
 import info.sanaebadi.domain.repository.place.places.PlaceRepository
-import info.sanaebadi.domain.repository.place.promoted.PromotedRepository
 import info.sanaebadi.placeapp.executors.UIThread
 import info.sanaebadi.placeapp.global.PlaceApplication
+import info.sanaebadi.placeapp.util.AppSchedulerProvider
+import info.sanaebadi.placeapp.util.ConnectionHelper
+import info.sanaebadi.placeapp.util.PreferencesHelper
+import info.sanaebadi.placeapp.util.SchedulerProvider
 import javax.inject.Singleton
 
 @Module
@@ -45,17 +45,19 @@ class ApplicationModule {
         return placeDataRepository
     }
 
-    @Provides
-    @Singleton
-    fun provideFavoriteDataRepository(favoriteDataRepository: FavoriteDataRepository): FavoriteRepository {
-        return favoriteDataRepository
-    }
 
     @Provides
     @Singleton
-    fun providePromotedRepository(promotedDataRepository: PromotedDataRepository): PromotedRepository {
-        return promotedDataRepository
-    }
+    fun provideConnectionHelper(context: Context) = ConnectionHelper(context)
 
+    @Provides
+    @Singleton
+    fun providePreferencesHelper(context: Context) = PreferencesHelper(context)
+
+
+
+    @Provides
+    @Singleton
+    fun provideSchedulerProvider(): SchedulerProvider = AppSchedulerProvider()
 
 }
