@@ -8,4 +8,6 @@ interface PlacesView {
     fun showLoading()
     fun hideLoading()
     fun showEmpty()
+    fun hideError()
+    fun hideEmpty()
 }
