@@ -15,19 +15,8 @@ data class PlaceItem(
     val id: Int? = null,
     val iconUrl: String? = null,
     val title: String? = null
-) : BaseDomainModel
-
-
-data class PlaceItemType(
-    val score: Double? = null,
-    val shortAddress: String? = null,
-    val bannerUrl: String? = null,
-    val description: String? = null,
-    val id: Int? = null,
-    val iconUrl: String? = null,
-    val title: String? = null
-) : ViewType {
-    override fun getViewType(): Int {
-        TODO("Not yet implemented")
-    }
+) : BaseDomainModel, ViewType {
+    override fun getViewType(): Int = 2
 }
+
+

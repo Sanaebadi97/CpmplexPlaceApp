@@ -20,6 +20,7 @@ class PlaceViewModel @Inject constructor(
             .observeOn(schedulerProvider.uiScheduler())
             .subscribe({ placeData ->
                 view?.hideLoading()
+                view?.showDetails(placeData)
             },
                 { error ->
                     view?.hideLoading()

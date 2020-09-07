@@ -4,7 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import info.sanaebadi.placeapp.R
-import info.sanaebadi.placeapp.mvvm.base.ViewType
+import info.sanaebadi.domain.model.base.ViewType
 
 import info.sanaebadi.placeapp.mvvm.base.ViewTypeDelegateAdapter
 import info.sanaebadi.placeapp.util.inflate

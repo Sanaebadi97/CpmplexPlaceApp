@@ -3,9 +3,8 @@ package info.sanaebadi.placeapp.mvvm.feature.place.adapter
 import android.view.ViewGroup
 import androidx.collection.SparseArrayCompat
 import androidx.recyclerview.widget.RecyclerView
-import info.sanaebadi.domain.model.place.promoted.PromotedListModel
 import info.sanaebadi.placeapp.mvvm.base.AdapterConstants
-import info.sanaebadi.placeapp.mvvm.base.ViewType
+import info.sanaebadi.domain.model.base.ViewType
 import info.sanaebadi.placeapp.mvvm.base.ViewTypeDelegateAdapter
 import info.sanaebadi.placeapp.mvvm.delegate.place.LoadingDelegateAdapter
 import info.sanaebadi.placeapp.mvvm.delegate.place.PlaceDelegateAdapter
@@ -54,18 +53,17 @@ class PlaceAdapter(listener: (Int) -> Unit) :
         items.remove(loadingItem)
     }
 
-    fun updateList(list: MutableList<ViewType>) {
-        items = list
-        notifyDataSetChanged()
-    }
+//    fun updateList(list: List<ViewType>) {
+//        items = list
+//        notifyDataSetChanged()
+//    }
 
 
-    fun addItemToList(items: List<ViewType>) {
+    fun addItemsToList(items: List<ViewType>) {
         if (items.isNotEmpty()) {
             addItems(items)
         }
     }
-
 
 
 }

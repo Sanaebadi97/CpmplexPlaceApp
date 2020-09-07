@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import info.sanaebadi.domain.model.place.places.PlaceItem
 import info.sanaebadi.placeapp.databinding.PlaceItemBinding
-import info.sanaebadi.placeapp.mvvm.base.ViewType
+import info.sanaebadi.domain.model.base.ViewType
 import info.sanaebadi.placeapp.mvvm.base.ViewTypeDelegateAdapter
 import info.sanaebadi.placeapp.util.loadCircleImage
 

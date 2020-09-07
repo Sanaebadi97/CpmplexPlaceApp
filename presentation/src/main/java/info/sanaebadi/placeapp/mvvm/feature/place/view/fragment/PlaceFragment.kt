@@ -81,8 +81,8 @@ class PlaceFragment : DaggerFragment(), PlacesView {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
         viewModel.attachView(this)
-        initAdapter()
         viewModel.getPlaces()
+        initAdapter()
     }
 
     override fun onDestroyView() {
@@ -104,8 +104,8 @@ class PlaceFragment : DaggerFragment(), PlacesView {
 
     override fun showDetails(places: PlaceData) {
         with(placeAdapter) {
-            addItemToList(places.promotedList)
-            addItemToList(places.places)
+            addItemsToList(places.promotedList)
+            addItemsToList(places.places)
             notifyDataSetChanged()
         }
     }
