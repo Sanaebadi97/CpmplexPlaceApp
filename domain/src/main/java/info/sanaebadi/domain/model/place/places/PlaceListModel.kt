@@ -1,10 +1,15 @@
 package info.sanaebadi.domain.model.place.places
 
+import info.sanaebadi.domain.interactor.base.ViewType
 import info.sanaebadi.domain.model.base.BaseDomainModel
 
 data class PlaceListModel(
     val places: List<PlaceItem>? = null
-) : BaseDomainModel
+) : BaseDomainModel , ViewType {
+    override fun getViewType(): Int {
+        TODO("Not yet implemented")
+    }
+}
 
 data class PlaceItem(
     val score: Double? = null,
