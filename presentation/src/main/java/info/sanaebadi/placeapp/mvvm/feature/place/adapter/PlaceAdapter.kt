@@ -1,16 +1,21 @@
 package info.sanaebadi.placeapp.mvvm.feature.place.adapter
 
+import android.view.View
 import android.view.ViewGroup
 import androidx.collection.SparseArrayCompat
 import androidx.recyclerview.widget.RecyclerView
-import info.sanaebadi.placeapp.mvvm.base.AdapterConstants
 import info.sanaebadi.domain.model.base.ViewType
+import info.sanaebadi.domain.model.place.places.PlaceItem
+import info.sanaebadi.domain.model.place.promoted.PromotedItem
+import info.sanaebadi.placeapp.mvvm.base.AdapterConstants
 import info.sanaebadi.placeapp.mvvm.base.ViewTypeDelegateAdapter
 import info.sanaebadi.placeapp.mvvm.delegate.place.LoadingDelegateAdapter
 import info.sanaebadi.placeapp.mvvm.delegate.place.PlaceDelegateAdapter
 import info.sanaebadi.placeapp.mvvm.delegate.place.PromotedPlaceDelegateAdapter
 
-class PlaceAdapter(listener: (Int) -> Unit) :
+class PlaceAdapter(
+    listener: (PlaceItem) -> Unit
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var items: MutableList<ViewType> = ArrayList()
@@ -21,7 +26,10 @@ class PlaceAdapter(listener: (Int) -> Unit) :
     }
 
     init {
-        delegateAdapters.put(AdapterConstants.PLACE_PROMOTED, PromotedPlaceDelegateAdapter())
+        delegateAdapters.put(
+            AdapterConstants.PLACE_PROMOTED,
+            PromotedPlaceDelegateAdapter()
+        )
         delegateAdapters.put(AdapterConstants.PLACE_LIST, PlaceDelegateAdapter(listener))
         delegateAdapters.put(AdapterConstants.LOADING, LoadingDelegateAdapter())
     }
@@ -53,10 +61,14 @@ class PlaceAdapter(listener: (Int) -> Unit) :
         items.remove(loadingItem)
     }
 
-//    fun updateList(list: List<ViewType>) {
-//        items = list
-//        notifyDataSetChanged()
-//    }
+    fun updateList(list: MutableList<PlaceItem>) {
+        items = list.toMutableList()
+        notifyDataSetChanged()
+    }
+    fun updateProList(list: MutableList<PromotedItem>) {
+        items = list.toMutableList()
+        notifyDataSetChanged()
+    }
 
 
     fun addItemsToList(items: List<ViewType>) {

@@ -4,13 +4,16 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import info.sanaebadi.domain.model.base.ViewType
 import info.sanaebadi.domain.model.place.places.PlaceItem
 import info.sanaebadi.placeapp.databinding.PlaceItemBinding
-import info.sanaebadi.domain.model.base.ViewType
 import info.sanaebadi.placeapp.mvvm.base.ViewTypeDelegateAdapter
 import info.sanaebadi.placeapp.util.loadCircleImage
 
-class PlaceDelegateAdapter(private val listener: (Int) -> Unit) : ViewTypeDelegateAdapter {
+class PlaceDelegateAdapter(
+    private val listener: (PlaceItem) -> Unit,
+) :
+    ViewTypeDelegateAdapter {
 
     override fun onCreateViewHolder(parent: ViewGroup) =
         PlaceViewHolder(
@@ -26,12 +29,15 @@ class PlaceDelegateAdapter(private val listener: (Int) -> Unit) : ViewTypeDelega
     class PlaceViewHolder(private val placeItemBinding: PlaceItemBinding) :
         RecyclerView.ViewHolder(placeItemBinding.root) {
         @SuppressLint("NewApi")
-        fun bind(place: PlaceItem, listener: (Int) -> Unit) = with(itemView) {
+        fun bind(
+            place: PlaceItem, listener: (PlaceItem) -> Unit,
+        ) = with(itemView) {
             placeItemBinding.imagePlaceIcon.loadCircleImage(place.iconUrl!!)
             placeItemBinding.textPlaceTitle.text = place.title
             placeItemBinding.textPlaceShortAddress.text = place.shortAddress
 
-            setOnClickListener { listener(adapterPosition) }
+            setOnClickListener { listener(place) }
+
         }
     }
 }

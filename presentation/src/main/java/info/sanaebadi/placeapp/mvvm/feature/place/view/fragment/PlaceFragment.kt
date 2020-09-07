@@ -1,6 +1,8 @@
 package info.sanaebadi.placeapp.mvvm.feature.place.view.fragment
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
 import info.sanaebadi.domain.model.place.PlaceData
 import info.sanaebadi.domain.model.place.favorite.FavoriteListItem
+import info.sanaebadi.domain.model.place.places.PlaceItem
 import info.sanaebadi.domain.model.place.places.PlaceListModel
 import info.sanaebadi.domain.model.place.promoted.PromotedListModel
 import info.sanaebadi.placeapp.R
@@ -45,13 +48,13 @@ class PlaceFragment : DaggerFragment(), PlacesView {
     lateinit var viewModel: PlaceViewModel
 
     private val placeAdapter by lazy {
-        PlaceAdapter { position ->
+        PlaceAdapter { placeItem ->
 
-//            placeTitle = data?.places?.get(position)?.title
-//            placeShortAddress = data?.places?.get(position)?.shortAddress
-//            placeDescription = data?.places?.get(position)?.description
-//            placeScore = data?.places?.get(position)?.score
-//            placeBannerUrl = data?.places?.get(position)?.bannerUrl
+            placeTitle = placeItem.title
+            placeShortAddress = placeItem.shortAddress
+            placeDescription = placeItem.description
+            placeScore = placeItem.score
+            placeBannerUrl = placeItem.bannerUrl
 
             val bundle = bundleOf(
                 "placeTitle" to placeTitle,
@@ -83,6 +86,7 @@ class PlaceFragment : DaggerFragment(), PlacesView {
         viewModel.attachView(this)
         viewModel.getPlaces()
         initAdapter()
+
     }
 
     override fun onDestroyView() {
@@ -106,8 +110,41 @@ class PlaceFragment : DaggerFragment(), PlacesView {
         with(placeAdapter) {
             addItemsToList(places.promotedList)
             addItemsToList(places.places)
+            favoriteData = places.favoriteIds
             notifyDataSetChanged()
+
+            filterList(places)
         }
+    }
+
+    private fun filterList(places: PlaceData): Unit? {
+        return binding?.editQuery?.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(
+                s: CharSequence,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable) {
+                filterWords(places, s)
+            }
+        })
+    }
+
+    private fun filterWords(
+        places: PlaceData,
+        s: Editable
+    ) {
+        val temp: MutableList<PlaceItem> = ArrayList()
+        for (placeItem: PlaceItem? in places.places) {
+            if (placeItem?.title?.contains(s.toString())!!) {
+                temp.add(placeItem)
+            }
+        }
+        placeAdapter.updateList(temp)
     }
 
 
