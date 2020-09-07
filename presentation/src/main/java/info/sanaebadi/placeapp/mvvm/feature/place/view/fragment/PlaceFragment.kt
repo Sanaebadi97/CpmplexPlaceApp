@@ -1,35 +1,29 @@
 package info.sanaebadi.placeapp.mvvm.feature.place.view.fragment
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatTextView
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.MergeAdapter
-import androidx.recyclerview.widget.RecyclerView
-import dagger.android.support.AndroidSupportInjection
+import dagger.android.support.DaggerFragment
+import info.sanaebadi.domain.model.place.PlaceData
 import info.sanaebadi.domain.model.place.favorite.FavoriteListItem
-import info.sanaebadi.domain.model.place.places.PlaceItem
 import info.sanaebadi.domain.model.place.places.PlaceListModel
-import info.sanaebadi.domain.model.place.promoted.PromotedItem
 import info.sanaebadi.domain.model.place.promoted.PromotedListModel
+import info.sanaebadi.placeapp.R
 import info.sanaebadi.placeapp.databinding.FragmentPlaceBinding
-import info.sanaebadi.placeapp.mvvm.base.BaseFragment
+import info.sanaebadi.placeapp.mvvm.base.PlacesView
+import info.sanaebadi.placeapp.mvvm.feature.place.adapter.PlaceAdapter
 import info.sanaebadi.placeapp.mvvm.feature.place.view.adapter.PlaceAdapter
 import info.sanaebadi.placeapp.mvvm.feature.place.view.adapter.PromotedAdapter
 import info.sanaebadi.placeapp.mvvm.feature.place.viewModel.PlaceViewModel
-import kotlinx.android.synthetic.main.fragment_place.*
 import javax.inject.Inject
 
-class PlaceFragment : BaseFragment() {
+class PlaceFragment : DaggerFragment(), PlacesView {
 
 
     companion object {
@@ -49,23 +43,33 @@ class PlaceFragment : BaseFragment() {
     private var placeScore: Double? = null
     private var isFav: Boolean = false
 
-    private var placeAdapter: PlaceAdapter? = null
-    private var promotedAdapter: PromotedAdapter? = null
-    private var favoriteIds: Int? = null
-    private var adapter: MergeAdapter? = null
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    lateinit var viewModel: PlaceViewModel
 
+    private val placeAdapter by lazy {
+        PlaceAdapter { position ->
 
-    private val viewModel: PlaceViewModel by lazy {
-        ViewModelProvider(requireActivity(), viewModelFactory).get(PlaceViewModel::class.java)
+//            placeTitle = data?.places?.get(position)?.title
+//            placeShortAddress = data?.places?.get(position)?.shortAddress
+//            placeDescription = data?.places?.get(position)?.description
+//            placeScore = data?.places?.get(position)?.score
+//            placeBannerUrl = data?.places?.get(position)?.bannerUrl
+
+            val bundle = bundleOf(
+                "placeTitle" to placeTitle,
+                "placeShortAddress" to placeShortAddress,
+                "placeDescription" to placeDescription,
+                "placeScore" to placeScore,
+                "placeBannerUrl" to placeBannerUrl,
+                "isFav" to isFav
+            )
+            //navigate to details fragment with bundle
+            navController!!.navigate(R.id.action_placeFragment_to_detailsFragment, bundle)
+
+        }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidSupportInjection.inject(this)
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -79,238 +83,46 @@ class PlaceFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
-
-        viewModel.getPromoted()
+        viewModel.attachView(this)
+        initAdapter()
         viewModel.getPlaces()
-        viewModel.getFavorite()
-
-
-        setUpObserver()
-        onRetryClick()
-
-        filterList()
-        filterFavorite()
-
     }
 
-    private fun setUpAdapter(
-        promotedData: MutableList<PromotedItem>?,
-        placeData: MutableList<PlaceItem>?
-    ) {
-        setUpRecyclerview()
-        promotedAdapter = PromotedAdapter(promotedData!!)
-        placeAdapter = PlaceAdapter(placeData!!)
-        adapter = MergeAdapter(promotedAdapter, placeAdapter)
-        binding?.recyclerPlaces?.adapter = adapter
+    override fun onDestroyView() {
+        viewModel.detachView()
+        super.onDestroyView()
     }
 
-    private fun filterFavorite() {
-        binding?.switchFavorite?.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                for (i in 0 until favoriteData?.favoriteIds?.size!!) {
-                    for (j in 0 until (placeData?.places?.size!!)) {
-                        getFavoriteFilter(i, j)
-
-                    }
-                }
-            } else {
-                // setUpAdapter(data?.places!!)
-            }
-        }
-    }
-
-    private fun filterList() {
-        binding?.editQuery?.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable) {
-                filter(s.toString())
-            }
-        })
-    }
-
-    private fun setUpRecyclerview() {
-        val layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        binding?.recyclerPlaces?.layoutManager = layoutManager
+    private fun initAdapter() {
+        binding?.recyclerPlaces?.layoutManager = LinearLayoutManager(context)
         binding?.recyclerPlaces?.setHasFixedSize(true)
+        binding?.recyclerPlaces?.adapter = placeAdapter
     }
-
-
-    //TODO:ADD NETWORK
-    private fun onRetryClick() {
-        binding?.viewError?.buttonTryAgain?.setOnClickListener { v -> viewModel.getPlaces() }
-    }
-
-
-    private fun setUpObserver() {
-
-        viewModel.promoted.observe(viewLifecycleOwner, Observer { mutableViewModelModel ->
-            when {
-                mutableViewModelModel.isLoading() -> {
-                }
-                mutableViewModelModel.getThrowable() != null -> {
-                    mutableViewModelModel.getThrowable()!!.message?.let {
-                        Log.e(TAG, "ERROR IN FETCH PROMOTED $it")
-                    }
-                }
-                else -> {
-                    promotedData = mutableViewModelModel.getData()
-
-                    if (promotedData?.promotedList?.size != 0) {
-                        setUpAdapter(promotedData?.promotedList, null)
-                    } else {
-                        showEmptyView(binding?.viewEmpty?.viewEmpty)
-                    }
-
-                }
-            }
-        })
-
-        viewModel.place.observe(viewLifecycleOwner, Observer { mutableViewModelModel ->
-
-            when {
-                mutableViewModelModel.isLoading() -> {
-                    showLoading(binding?.loading)
-                    hideEmptyView(binding?.viewEmpty?.viewEmpty)
-                    hideErrorView(binding?.viewError?.viewError)
-                }
-                mutableViewModelModel.getThrowable() != null -> {
-                    hideLoading(binding?.loading)
-                    hideEmptyView(binding?.viewEmpty?.viewEmpty)
-                    mutableViewModelModel.getThrowable()!!.message?.let {
-                        showErrorView(
-                            it,
-                            binding?.viewError?.textErrorMessage,
-                            view_error
-                        )
-                    }
-                }
-                else -> {
-                    hideLoading(binding?.loading)
-                    hideErrorView(binding?.viewError?.viewError)
-                    placeData = mutableViewModelModel.getData()
-
-
-                    if (placeData?.places?.size != 0) {
-                        setUpAdapter(null, placeData?.places)
-                    } else {
-                        showEmptyView(binding?.viewEmpty?.viewEmpty)
-                    }
-                }
-            }
-        })
-        viewModel.favorite.observe(viewLifecycleOwner, Observer { mutableViewModelModel ->
-            when {
-                mutableViewModelModel.isLoading() -> {
-                }
-                mutableViewModelModel.getThrowable() != null -> {
-                    mutableViewModelModel.getThrowable()!!.message?.let {
-                        Log.e(TAG, "ERROR IN FETCH FAVORITE $it")
-                    }
-                }
-                else -> {
-                    favoriteData = mutableViewModelModel.getData()
-                    favoriteIds = favoriteData?.favoriteIds?.size!!
-
-
-                }
-            }
-        })
-    }
-
-
-    override fun showLoading(view: View?) {
-        super.showLoading(view)
-    }
-
-    override fun hideLoading(view: View?) {
-        super.hideLoading(view)
-    }
-
-    override fun showEmptyView(view: View?) {
-        super.showEmptyView(view)
-        binding?.recyclerPlaces?.visibility = View.GONE
-    }
-
-    override fun hideEmptyView(view: View?) {
-        super.hideEmptyView(view)
-        binding?.recyclerPlaces?.visibility = View.VISIBLE
-    }
-
-    override fun showErrorView(message: String?, textError: AppCompatTextView?, view: View?) {
-        super.showErrorView(message, textError, view)
-        binding?.recyclerPlaces?.visibility = View.GONE
-    }
-
-    override fun hideErrorView(view: View?) {
-        super.hideErrorView(view)
-    }
-
-
-//    override fun onItemClick(position: Int) {
-//        placeTitle = data?.places?.get(position)?.title
-//        placeShortAddress = data?.places?.get(position)?.shortAddress
-//        placeDescription = data?.places?.get(position)?.description
-//        placeScore = data?.places?.get(position)?.score
-//        placeBannerUrl = data?.places?.get(position)?.bannerUrl
-//
-//        val bundle = bundleOf(
-//            "placeTitle" to placeTitle,
-//            "placeShortAddress" to placeShortAddress,
-//            "placeDescription" to placeDescription,
-//            "placeScore" to placeScore,
-//            "placeBannerUrl" to placeBannerUrl,
-//            "isFav" to isFav
-//        )
-//        //navigate to details fragment with bundle
-//        navController!!.navigate(R.id.action_placeFragment_to_detailsFragment, bundle)
-//
-//
-//    }
-
-
-    fun filter(text: CharSequence?) {
-        val temp: MutableList<PlaceItem?> = ArrayList()
-        for (placeItem: PlaceItem? in placeData?.places!!) {
-            if (placeItem?.title?.contains(text!!)!! || placeItem.shortAddress?.contains(text!!)!!) {
-                temp.add(placeItem)
-            }
-        }
-//        adapter?.updateList(temp)
-        adapter?.notifyDataSetChanged()
-    }
-
-    private fun getFavoriteFilter(i: Int, j: Int) {
-        val temp: MutableList<PlaceItem?> = ArrayList()
-        for (placeItem: PlaceItem? in placeData?.places!!) {
-            if (favoriteData?.favoriteIds!![i]!! == placeData?.places!![j]?.id)
-                temp.add(placeItem)
-            continue
-
-        }
-//        placeAdapter?.updateList(temp)
-        adapter?.notifyDataSetChanged()
-    }
-
-//    override fun setFavoriteItem(view: View, position: Int) {
-//        if (favoriteData?.favoriteIds?.size != 0) {
-//            for (i in 0 until favoriteData?.favoriteIds?.size!!) {
-//                if (favoriteData?.favoriteIds!![i]!! == data?.places!![position]?.id) {
-//                    view.visibility = View.VISIBLE
-//                    isFav = true
-//                    continue
-//                } else {
-//                    isFav = false
-//                    continue
-//                }
-//            }
-//        }
-//    }
 
 
     override fun onDestroy() {
         super.onDestroy()
         binding = null
+    }
+
+    override fun showDetails(places: PlaceData) {
+        with(placeAdapter) {
+            addItemToList(places.promotedList)
+            addItemToList(places.places)
+            notifyDataSetChanged()
+        }
+    }
+
+    override fun showError(error: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun showLoading() {
+        TODO("Not yet implemented")
+    }
+
+    override fun hideLoading() {
+        TODO("Not yet implemented")
     }
 
 
