@@ -3,7 +3,6 @@ package info.sanaebadi.placeapp.mvvm.feature.place.view.fragment
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,16 +13,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
 import info.sanaebadi.domain.model.base.ViewType
 import info.sanaebadi.domain.model.place.PlaceData
-import info.sanaebadi.domain.model.place.favorite.FavoriteListItem
 import info.sanaebadi.domain.model.place.places.PlaceItem
-import info.sanaebadi.domain.model.place.places.PlaceListModel
 import info.sanaebadi.domain.model.place.promoted.PromotedItem
-import info.sanaebadi.domain.model.place.promoted.PromotedListModel
 import info.sanaebadi.placeapp.R
 import info.sanaebadi.placeapp.databinding.FragmentPlaceBinding
 import info.sanaebadi.placeapp.mvvm.base.PlacesView
-import info.sanaebadi.placeapp.mvvm.feature.place.adapter.PlaceAdapter
-import info.sanaebadi.placeapp.mvvm.feature.place.viewModel.PlaceViewModel
+import info.sanaebadi.placeapp.mvvm.feature.place.view.adapter.PlaceAdapter
+import info.sanaebadi.placeapp.mvvm.feature.place.view.viewModel.PlaceViewModel
 import info.sanaebadi.placeapp.util.ConnectionHelper
 import javax.inject.Inject
 
@@ -36,9 +32,6 @@ class PlaceFragment : DaggerFragment(), PlacesView {
 
     private var binding: FragmentPlaceBinding? = null
     private var navController: NavController? = null
-    private var placeData: PlaceListModel? = null
-    private var favoriteData: FavoriteListItem? = null
-    private var promotedData: PromotedListModel? = null
 
     private var placeTitle: String? = null
     private var placeShortAddress: String? = null
@@ -47,7 +40,6 @@ class PlaceFragment : DaggerFragment(), PlacesView {
     private var placeScore: Double? = null
     private var isFav: Boolean = false
 
-    private var fullData: MutableList<PlaceData> = ArrayList<PlaceData>()
 
     @Inject
     lateinit var viewModel: PlaceViewModel
@@ -132,9 +124,45 @@ class PlaceFragment : DaggerFragment(), PlacesView {
             notifyDataSetChanged()
 
             filterList(places)
-            fullData.add(PlaceData(places.promotedList, places.places, places.favoriteIds))
-            Log.i(TAG, "FULL LIST $fullData")
+            notifyDataSetChanged()
 
+
+            filterFavorite(places)
+        }
+    }
+
+    private fun PlaceAdapter.filterFavorite(
+        places: PlaceData
+    ): Unit? {
+        return binding?.switchFavorite?.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+
+                val temp: MutableList<ViewType> = ArrayList()
+
+
+                for (position in places.favoriteIds.favoriteIds!!.indices) {
+                    for (placeItem: PlaceItem in places.places) {
+                        if (places.favoriteIds.favoriteIds!![position] == placeItem.id) {
+                            temp.add(placeItem)
+                            notifyDataSetChanged()
+                        }
+                    }
+                    for (promotedItem: PromotedItem in places.promotedList) {
+                        if (places.favoriteIds.favoriteIds!![position] == promotedItem.id) {
+                            temp.add(promotedItem)
+                            notifyDataSetChanged()
+                        }
+
+                    }
+                }
+
+
+                placeAdapter.updateList(temp)
+            } else {
+                addItemsToList(places.promotedList)
+                addItemsToList(places.places)
+                notifyDataSetChanged()
+            }
 
         }
     }
@@ -156,19 +184,7 @@ class PlaceFragment : DaggerFragment(), PlacesView {
         })
     }
 
-    //
-//    private fun filterWords(
-//        places: PlaceData,
-//        s: Editable
-//    ) {
-//        val temp: MutableList<ViewType> = ArrayList()
-//        for (placeItem: PlaceItem? in places.places) {
-//            if (placeItem?.title?.contains(s.toString())!!) {
-//                temp.add(placeItem)
-//            }
-//        }
-//        placeAdapter.updateList(temp)
-//    }
+
     private fun filterWords(
         places: PlaceData,
         s: Editable
@@ -183,6 +199,7 @@ class PlaceFragment : DaggerFragment(), PlacesView {
         for (promotedItem: PromotedItem in places.promotedList) {
             if (promotedItem.title?.contains(s.toString())!!) {
                 temp.add(promotedItem)
+
             }
 
         }

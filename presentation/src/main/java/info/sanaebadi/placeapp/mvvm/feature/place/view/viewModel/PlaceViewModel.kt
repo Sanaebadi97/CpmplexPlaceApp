@@ -1,4 +1,4 @@
-package info.sanaebadi.placeapp.mvvm.feature.place.viewModel
+package info.sanaebadi.placeapp.mvvm.feature.place.view.viewModel
 
 import android.annotation.SuppressLint
 import info.sanaebadi.domain.interactor.place.PlaceUseCase
