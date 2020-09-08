@@ -17,15 +17,17 @@ import info.sanaebadi.domain.model.place.PlaceData
 import info.sanaebadi.domain.model.place.favorite.FavoriteListItem
 import info.sanaebadi.domain.model.place.places.PlaceItem
 import info.sanaebadi.domain.model.place.places.PlaceListModel
+import info.sanaebadi.domain.model.place.promoted.PromotedItem
 import info.sanaebadi.domain.model.place.promoted.PromotedListModel
 import info.sanaebadi.placeapp.R
 import info.sanaebadi.placeapp.databinding.FragmentPlaceBinding
 import info.sanaebadi.placeapp.mvvm.base.PlacesView
 import info.sanaebadi.placeapp.mvvm.feature.place.adapter.PlaceAdapter
 import info.sanaebadi.placeapp.mvvm.feature.place.viewModel.PlaceViewModel
+import info.sanaebadi.placeapp.util.ConnectionHelper
 import javax.inject.Inject
 
-class PlaceFragment : DaggerFragment(), PlacesView  {
+class PlaceFragment : DaggerFragment(), PlacesView {
 
 
     companion object {
@@ -51,7 +53,7 @@ class PlaceFragment : DaggerFragment(), PlacesView  {
     lateinit var viewModel: PlaceViewModel
 
     private val placeAdapter by lazy {
-        PlaceAdapter { placeData , promoted ->
+        PlaceAdapter { placeData, promoted ->
 
             placeTitle = placeData.title
             placeShortAddress = placeData.shortAddress
@@ -93,7 +95,15 @@ class PlaceFragment : DaggerFragment(), PlacesView  {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
         viewModel.attachView(this)
-        viewModel.getPlaces()
+
+        val connectionHelper = activity?.let { ConnectionHelper(it) }
+        if (connectionHelper!!.isOnline()) {
+            viewModel.getPlaces()
+        } else {
+            showError(getString(R.string.check_internet))
+        }
+
+
         initAdapter()
 
     }
@@ -123,7 +133,7 @@ class PlaceFragment : DaggerFragment(), PlacesView  {
 
             filterList(places)
             fullData.add(PlaceData(places.promotedList, places.places, places.favoriteIds))
-            Log.i(TAG , "FULL LIST $fullData")
+            Log.i(TAG, "FULL LIST $fullData")
 
 
         }
@@ -146,16 +156,37 @@ class PlaceFragment : DaggerFragment(), PlacesView  {
         })
     }
 
+    //
+//    private fun filterWords(
+//        places: PlaceData,
+//        s: Editable
+//    ) {
+//        val temp: MutableList<ViewType> = ArrayList()
+//        for (placeItem: PlaceItem? in places.places) {
+//            if (placeItem?.title?.contains(s.toString())!!) {
+//                temp.add(placeItem)
+//            }
+//        }
+//        placeAdapter.updateList(temp)
+//    }
     private fun filterWords(
         places: PlaceData,
         s: Editable
     ) {
         val temp: MutableList<ViewType> = ArrayList()
-        for (placeItem: PlaceItem? in places.places) {
-            if (placeItem?.title?.contains(s.toString())!!) {
+
+        for (placeItem: PlaceItem in places.places) {
+            if (placeItem.title?.contains(s.toString())!!) {
                 temp.add(placeItem)
             }
         }
+        for (promotedItem: PromotedItem in places.promotedList) {
+            if (promotedItem.title?.contains(s.toString())!!) {
+                temp.add(promotedItem)
+            }
+
+        }
+
         placeAdapter.updateList(temp)
     }
 
@@ -169,6 +200,14 @@ class PlaceFragment : DaggerFragment(), PlacesView  {
         binding?.viewEmpty?.viewEmpty?.visibility = View.VISIBLE
     }
 
+    override fun hideError() {
+        binding?.viewError?.viewError?.visibility = View.GONE
+    }
+
+    override fun hideEmpty() {
+        binding?.viewEmpty?.viewEmpty?.visibility = View.GONE
+    }
+
     override fun showLoading() {
         placeAdapter.addLoadingItem()
     }
@@ -176,7 +215,6 @@ class PlaceFragment : DaggerFragment(), PlacesView  {
     override fun hideLoading() {
         placeAdapter.removeLoadingItem()
     }
-
 
 
 }
