@@ -1,6 +1,6 @@
 package info.sanaebadi.placeapp.util
 
 object Constants {
-    const val NUMBER_OF_ITEMS_IN_SECTION = 3
-    const val REFRESH_LIMIT = 1000 * 60 * 60 * 12 // 12 Hours in milliseconds
+    const val PLACE_APP_SHARED_PREF = "place_app_shared_pref"
+    const val KEY_PREF = "fav_icon"
 }

@@ -1,19 +1,20 @@
 package info.sanaebadi.placeapp.util
 
 import android.content.Context
-import android.preference.PreferenceManager
 
 class PreferencesHelper(private val context: Context) {
 
-    fun saveLong(key: String, value: Long) {
-        val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+    fun saveView(key: String, value: String) {
+        val preferences =
+            context.getSharedPreferences(Constants.PLACE_APP_SHARED_PREF, Context.MODE_PRIVATE)
         val editor = preferences.edit()
-        editor.putLong(key, value)
+        editor.putString(key, value)
         editor.apply()
     }
 
-    fun loadLong(key: String): Long {
-        val preferences = PreferenceManager.getDefaultSharedPreferences(context)
-        return preferences.getLong(key, 0L)
+    fun loadView(key: String): String? {
+        val preferences =
+            context.getSharedPreferences(Constants.PLACE_APP_SHARED_PREF, Context.MODE_PRIVATE)
+        return preferences.getString(key,"")
     }
 }

@@ -40,12 +40,14 @@ class PlaceFragment : DaggerFragment(), PlacesView {
     private var placeScore: Double? = null
     private var isFav: Boolean = false
 
+    lateinit var favView: View
+    private var viewPosition: Int? = null
 
     @Inject
     lateinit var viewModel: PlaceViewModel
 
     private val placeAdapter by lazy {
-        PlaceAdapter { placeData, promoted ->
+        PlaceAdapter({ placeData, promoted ->
 
             placeTitle = placeData.title
             placeShortAddress = placeData.shortAddress
@@ -70,7 +72,19 @@ class PlaceFragment : DaggerFragment(), PlacesView {
             //navigate to details fragment with bundle
             navController!!.navigate(R.id.action_placeFragment_to_detailsFragment, bundle)
 
-        }
+        }, { view, position ,placeItem , favoriteList ->
+            run {
+                    if (favoriteList.favoriteIds?.size != 0) {
+                        for (i in 0 until favoriteList.favoriteIds?.size!!) {
+                            if (favoriteList.favoriteIds!![i] == placeItem.places[position]!!.id) {
+                                 view.visibility = View.VISIBLE
+                                continue
+                            }
+                        }
+                    }
+                }
+            }
+        })
     }
 
 
@@ -122,35 +136,34 @@ class PlaceFragment : DaggerFragment(), PlacesView {
             addItemsToList(places.promotedList)
             addItemsToList(places.places)
             notifyDataSetChanged()
-
             filterList(places)
+            filterFavorite(places)
             notifyDataSetChanged()
 
+            showFavIcon(places)
 
-            filterFavorite(places)
+
         }
     }
+
+
 
     private fun PlaceAdapter.filterFavorite(
         places: PlaceData
     ): Unit? {
         return binding?.switchFavorite?.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
-
                 val temp: MutableList<ViewType> = ArrayList()
-
 
                 for (position in places.favoriteIds.favoriteIds!!.indices) {
                     for (placeItem: PlaceItem in places.places) {
                         if (places.favoriteIds.favoriteIds!![position] == placeItem.id) {
                             temp.add(placeItem)
-                            notifyDataSetChanged()
                         }
                     }
                     for (promotedItem: PromotedItem in places.promotedList) {
                         if (places.favoriteIds.favoriteIds!![position] == promotedItem.id) {
                             temp.add(promotedItem)
-                            notifyDataSetChanged()
                         }
 
                     }
@@ -177,7 +190,14 @@ class PlaceFragment : DaggerFragment(), PlacesView {
             ) {
             }
 
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+            override fun onTextChanged(
+                s: CharSequence,
+                start: Int,
+                before: Int,
+                count: Int
+            ) {
+            }
+
             override fun afterTextChanged(s: Editable) {
                 filterWords(places, s)
             }
