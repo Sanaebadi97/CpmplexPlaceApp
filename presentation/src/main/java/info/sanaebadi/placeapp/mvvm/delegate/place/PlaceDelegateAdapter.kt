@@ -2,6 +2,7 @@ package info.sanaebadi.placeapp.mvvm.delegate.place
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import info.sanaebadi.domain.model.base.ViewType
@@ -31,11 +32,12 @@ class PlaceDelegateAdapter(
         RecyclerView.ViewHolder(placeItemBinding.root) {
         @SuppressLint("NewApi")
         fun bind(
-            place: PlaceItem, listener: (PlaceItem, PromotedItem) -> Unit,
+            place: PlaceItem, listener: (PlaceItem, PromotedItem) -> Unit
         ) = with(itemView) {
             placeItemBinding.imagePlaceIcon.loadCircleImage(place.iconUrl!!)
             placeItemBinding.textPlaceTitle.text = place.title
             placeItemBinding.textPlaceShortAddress.text = place.shortAddress
+
 
             setOnClickListener {
                 listener(
