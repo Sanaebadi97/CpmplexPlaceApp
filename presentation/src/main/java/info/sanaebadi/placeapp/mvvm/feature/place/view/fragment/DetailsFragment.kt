@@ -5,12 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.NavController
-import dagger.android.support.AndroidSupportInjection
+import dagger.android.support.DaggerFragment
 import info.sanaebadi.placeapp.databinding.FragmentDetailsBinding
-import info.sanaebadi.placeapp.mvvm.base.BaseFragment
 import info.sanaebadi.placeapp.util.loadUrl
 
-class DetailsFragment : BaseFragment() {
+class DetailsFragment : DaggerFragment() {
 
     private var binding: FragmentDetailsBinding? = null
     private var navController: NavController? = null
@@ -24,7 +23,6 @@ class DetailsFragment : BaseFragment() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidSupportInjection.inject(this)
         super.onCreate(savedInstanceState)
 
         placeTitle = requireArguments().getString("placeTitle")

@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.collection.SparseArrayCompat
 import androidx.recyclerview.widget.RecyclerView
 import info.sanaebadi.domain.model.base.ViewType
+import info.sanaebadi.domain.model.place.favorite.FavoriteListItem
 import info.sanaebadi.domain.model.place.places.PlaceItem
 import info.sanaebadi.domain.model.place.promoted.PromotedItem
 import info.sanaebadi.placeapp.mvvm.base.AdapterConstants
@@ -13,8 +14,9 @@ import info.sanaebadi.placeapp.mvvm.delegate.place.LoadingDelegateAdapter
 import info.sanaebadi.placeapp.mvvm.delegate.place.PlaceDelegateAdapter
 import info.sanaebadi.placeapp.mvvm.delegate.place.PromotedPlaceDelegateAdapter
 
-class PlaceAdapter constructor(
+class PlaceAdapter(
     listener: (PlaceItem, PromotedItem) -> Unit,
+    getFavView: (View, Int, PlaceItem, FavoriteListItem) -> Unit
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -32,7 +34,7 @@ class PlaceAdapter constructor(
         )
         delegateAdapters.put(
             AdapterConstants.PLACE_LIST,
-            PlaceDelegateAdapter(listener)
+            PlaceDelegateAdapter(listener, getFavView)
         )
         delegateAdapters.put(AdapterConstants.LOADING, LoadingDelegateAdapter())
     }
