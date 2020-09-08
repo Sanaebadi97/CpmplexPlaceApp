@@ -17,6 +17,7 @@ import info.sanaebadi.domain.model.place.PlaceData
 import info.sanaebadi.domain.model.place.favorite.FavoriteListItem
 import info.sanaebadi.domain.model.place.places.PlaceItem
 import info.sanaebadi.domain.model.place.places.PlaceListModel
+import info.sanaebadi.domain.model.place.promoted.PromotedItem
 import info.sanaebadi.domain.model.place.promoted.PromotedListModel
 import info.sanaebadi.placeapp.R
 import info.sanaebadi.placeapp.databinding.FragmentPlaceBinding
@@ -155,16 +156,37 @@ class PlaceFragment : DaggerFragment(), PlacesView {
         })
     }
 
+    //
+//    private fun filterWords(
+//        places: PlaceData,
+//        s: Editable
+//    ) {
+//        val temp: MutableList<ViewType> = ArrayList()
+//        for (placeItem: PlaceItem? in places.places) {
+//            if (placeItem?.title?.contains(s.toString())!!) {
+//                temp.add(placeItem)
+//            }
+//        }
+//        placeAdapter.updateList(temp)
+//    }
     private fun filterWords(
         places: PlaceData,
         s: Editable
     ) {
         val temp: MutableList<ViewType> = ArrayList()
-        for (placeItem: PlaceItem? in places.places) {
-            if (placeItem?.title?.contains(s.toString())!!) {
+
+        for (placeItem: PlaceItem in places.places) {
+            if (placeItem.title?.contains(s.toString())!!) {
                 temp.add(placeItem)
             }
         }
+        for (promotedItem: PromotedItem in places.promotedList) {
+            if (promotedItem.title?.contains(s.toString())!!) {
+                temp.add(promotedItem)
+            }
+
+        }
+
         placeAdapter.updateList(temp)
     }
 
