@@ -142,7 +142,6 @@ class PlaceFragment : DaggerFragment(), PlacesView {
     }
 
     private fun showFavorite(places: PlaceData) {
-
         if (places.favoriteIds.favoriteIds?.size != 0) {
             for (i in 0 until places.favoriteIds.favoriteIds?.size!!) {
                 if (places.favoriteIds.favoriteIds!![i] == places.places[adapterPosition!!].id) {
