@@ -70,6 +70,7 @@ dependencies {
     testImplementation(TestLibraries.junit4)
     androidTestImplementation(TestLibraries.testRunner)
     androidTestImplementation(TestLibraries.espresso)
+    testImplementation(TestLibraries.mockitoKotlin)
 
 
 }

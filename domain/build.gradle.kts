@@ -23,6 +23,7 @@ dependencies {
     implementation(RXLibraries.rxKotlin)
 
     testImplementation(TestLibraries.junit4)
+    testImplementation(TestLibraries.mockitoKotlin)
 }
 
 

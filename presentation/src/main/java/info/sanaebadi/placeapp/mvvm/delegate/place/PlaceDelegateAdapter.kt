@@ -16,7 +16,7 @@ import info.sanaebadi.placeapp.util.loadCircleImage
 
 class PlaceDelegateAdapter(
     private val listener: (PlaceItem, PromotedItem) -> Unit,
-    private val getFavView: (View, Int, PlaceItem, FavoriteListItem) -> Unit
+    private val getFavView: (View, Int) -> Unit
 ) :
     ViewTypeDelegateAdapter {
 
@@ -37,7 +37,7 @@ class PlaceDelegateAdapter(
         @SuppressLint("NewApi")
         fun bind(
             place: PlaceItem, listener: (PlaceItem, PromotedItem) -> Unit,
-            getFavView: (View, Int, PlaceItem, FavoriteListItem) -> Unit
+            getFavView: (View, Int) -> Unit
 
         ) = with(itemView) {
             placeItemBinding.imagePlaceIcon.loadCircleImage(place.iconUrl!!)
@@ -45,8 +45,7 @@ class PlaceDelegateAdapter(
             placeItemBinding.textPlaceShortAddress.text = place.shortAddress
 
             getFavView(
-                placeItemBinding.imageFavorite, adapterPosition, place,
-                FavoriteListItem(arrayListOf())
+                placeItemBinding.imageFavorite, adapterPosition
             )
 
             setOnClickListener {

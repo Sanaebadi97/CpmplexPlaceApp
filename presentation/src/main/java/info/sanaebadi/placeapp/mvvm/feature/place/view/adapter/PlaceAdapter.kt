@@ -16,7 +16,7 @@ import info.sanaebadi.placeapp.mvvm.delegate.place.PromotedPlaceDelegateAdapter
 
 class PlaceAdapter(
     listener: (PlaceItem, PromotedItem) -> Unit,
-    getFavView: (View, Int, PlaceItem, FavoriteListItem) -> Unit
+    getFavView: (View, Int) -> Unit
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -65,6 +65,10 @@ class PlaceAdapter(
     fun removeLoadingItem() {
         items.remove(loadingItem)
     }
+
+        fun removeNonUserItems() {
+            items.removeAll { it.getViewType() != AdapterConstants.USER_DETAILS }
+        }
 
     fun updateList(list: MutableList<ViewType>) {
         items = list
