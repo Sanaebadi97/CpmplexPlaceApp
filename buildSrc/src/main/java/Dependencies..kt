@@ -77,11 +77,13 @@ object TestLibraries {
         const val junitVersion = "4.12"
         const val testRunnerVersion = "1.1.0-alpha4"
         const val espressoVersion = "3.1.0-alpha4"
+        const val mockitoKotlinVersion = "2.2.0"
     }
 
     const val junit4 = "junit:junit:${Versions.junitVersion}"
     const val testRunner = "androidx.test:runner:${Versions.testRunnerVersion}"
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espressoVersion}"
+    const val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:${Versions.mockitoKotlinVersion}"
 }
 
 

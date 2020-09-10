@@ -40,8 +40,8 @@ class PlaceFragment : DaggerFragment(), PlacesView {
     private var placeScore: Double? = null
     private var isFav: Boolean = false
 
-    lateinit var favView: View
-    private var viewPosition: Int? = null
+    private var adapterView: View? = null
+    private var adapterPosition: Int? = null
 
     @Inject
     lateinit var viewModel: PlaceViewModel
@@ -72,19 +72,11 @@ class PlaceFragment : DaggerFragment(), PlacesView {
             //navigate to details fragment with bundle
             navController!!.navigate(R.id.action_placeFragment_to_detailsFragment, bundle)
 
-        }, { view, position ,placeItem , favoriteList ->
-            run {
-                    if (favoriteList.favoriteIds?.size != 0) {
-                        for (i in 0 until favoriteList.favoriteIds?.size!!) {
-                            if (favoriteList.favoriteIds!![i] == placeItem.places[position]!!.id) {
-                                 view.visibility = View.VISIBLE
-                                continue
-                            }
-                        }
-                    }
-                }
-            }
+        }, { mView, mPosition ->
+            this.adapterView = mView
+            this.adapterPosition = mPosition
         })
+
     }
 
 
@@ -131,21 +123,34 @@ class PlaceFragment : DaggerFragment(), PlacesView {
         binding = null
     }
 
+
     override fun showDetails(places: PlaceData) {
         with(placeAdapter) {
+            removeNonUserItems()
             addItemsToList(places.promotedList)
             addItemsToList(places.places)
             notifyDataSetChanged()
+         //   showFavorite(places)
             filterList(places)
             filterFavorite(places)
-            notifyDataSetChanged()
 
-            showFavIcon(places)
+
+            notifyDataSetChanged()
 
 
         }
     }
 
+    private fun showFavorite(places: PlaceData) {
+        if (places.favoriteIds.favoriteIds?.size != 0) {
+            for (i in 0 until places.favoriteIds.favoriteIds?.size!!) {
+                if (places.favoriteIds.favoriteIds!![i] == places.places[adapterPosition!!].id) {
+                    adapterView?.visibility = View.VISIBLE
+                    continue
+                }
+            }
+        }
+    }
 
 
     private fun PlaceAdapter.filterFavorite(
@@ -169,9 +174,10 @@ class PlaceFragment : DaggerFragment(), PlacesView {
                     }
                 }
 
-
                 placeAdapter.updateList(temp)
+
             } else {
+                removeNonUserItems()
                 addItemsToList(places.promotedList)
                 addItemsToList(places.places)
                 notifyDataSetChanged()
