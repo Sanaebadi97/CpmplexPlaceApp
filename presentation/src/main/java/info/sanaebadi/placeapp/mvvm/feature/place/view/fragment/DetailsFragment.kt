@@ -6,10 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.NavController
 import dagger.android.support.DaggerFragment
+import info.sanaebadi.domain.model.place.PlaceData
+import info.sanaebadi.domain.model.place.places.PlaceItem
+import info.sanaebadi.domain.model.place.promoted.PromotedItem
 import info.sanaebadi.placeapp.databinding.FragmentDetailsBinding
+import info.sanaebadi.placeapp.mvvm.base.PlacesView
 import info.sanaebadi.placeapp.util.loadUrl
 
-class DetailsFragment : DaggerFragment() {
+class DetailsFragment : DaggerFragment(), PlacesView {
 
     private var binding: FragmentDetailsBinding? = null
     private var navController: NavController? = null
@@ -63,5 +67,45 @@ class DetailsFragment : DaggerFragment() {
     override fun onDestroy() {
         super.onDestroy()
         binding = null
+    }
+
+    override fun showDetails(places: PlaceData) {
+        for (position in places.favoriteIds.favoriteIds!!.indices) {
+            for (placeItem: PlaceItem in places.places) {
+                if (places.favoriteIds.favoriteIds!![position] == placeItem.id) {
+                    binding?.textFavorite?.visibility = View.VISIBLE
+                }
+            }
+            for (promotedItem: PromotedItem in places.promotedList) {
+                if (places.favoriteIds.favoriteIds!![position] == promotedItem.id) {
+                    binding?.textFavorite?.visibility = View.VISIBLE
+                }
+
+            }
+        }
+    }
+
+    override fun showError(error: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun showLoading() {
+        TODO("Not yet implemented")
+    }
+
+    override fun hideLoading() {
+        TODO("Not yet implemented")
+    }
+
+    override fun showEmpty() {
+        TODO("Not yet implemented")
+    }
+
+    override fun hideError() {
+        TODO("Not yet implemented")
+    }
+
+    override fun hideEmpty() {
+        TODO("Not yet implemented")
     }
 }

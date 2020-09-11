@@ -4,7 +4,21 @@ import android.content.Context
 
 class PreferencesHelper(private val context: Context) {
 
-    fun saveView(key: String, value: String) {
+    fun saveInt(key: String, value: Int) {
+        val preferences =
+            context.getSharedPreferences(Constants.PLACE_APP_SHARED_PREF, Context.MODE_PRIVATE)
+        val editor = preferences.edit()
+        editor.putInt(key, value)
+        editor.apply()
+    }
+
+    fun loadInt(key: String): Int? {
+        val preferences =
+            context.getSharedPreferences(Constants.PLACE_APP_SHARED_PREF, Context.MODE_PRIVATE)
+        return preferences.getInt(key, 0)
+    }
+
+    fun saveString(key: String, value: String) {
         val preferences =
             context.getSharedPreferences(Constants.PLACE_APP_SHARED_PREF, Context.MODE_PRIVATE)
         val editor = preferences.edit()
@@ -12,9 +26,9 @@ class PreferencesHelper(private val context: Context) {
         editor.apply()
     }
 
-    fun loadView(key: String): String? {
+    fun loadString(key: String): String? {
         val preferences =
             context.getSharedPreferences(Constants.PLACE_APP_SHARED_PREF, Context.MODE_PRIVATE)
-        return preferences.getString(key,"")
+        return preferences.getString(key, null)
     }
 }

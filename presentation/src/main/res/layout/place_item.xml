@@ -52,16 +52,18 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="تهران ونک " />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/image_favorite"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_favorite"
             android:layout_width="wrap_content"
-            android:visibility="gone"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_margin_half"
+            android:fontFamily="@font/iransans_medium"
+            android:text="@string/my_favorite"
+            android:textColor="@color/red"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/text_place_short_address"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_place_title"
-            app:srcCompat="@drawable/ic_favorite" />
+            app:layout_constraintTop_toTopOf="@id/text_place_title" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

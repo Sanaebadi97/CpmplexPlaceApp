@@ -3,6 +3,7 @@ package info.sanaebadi.placeapp.mvvm.feature.place.view.fragment
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +22,10 @@ import info.sanaebadi.placeapp.mvvm.base.PlacesView
 import info.sanaebadi.placeapp.mvvm.feature.place.view.adapter.PlaceAdapter
 import info.sanaebadi.placeapp.mvvm.feature.place.view.viewModel.PlaceViewModel
 import info.sanaebadi.placeapp.util.ConnectionHelper
+import info.sanaebadi.placeapp.util.Constants
+import info.sanaebadi.placeapp.util.PreferencesHelper
 import javax.inject.Inject
+
 
 class PlaceFragment : DaggerFragment(), PlacesView {
 
@@ -41,7 +45,6 @@ class PlaceFragment : DaggerFragment(), PlacesView {
     private var isFav: Boolean = false
 
     private var adapterView: View? = null
-    private var adapterPosition: Int? = null
 
     @Inject
     lateinit var viewModel: PlaceViewModel
@@ -73,8 +76,10 @@ class PlaceFragment : DaggerFragment(), PlacesView {
             navController!!.navigate(R.id.action_placeFragment_to_detailsFragment, bundle)
 
         }, { mView, mPosition ->
-            this.adapterView = mView
-            this.adapterPosition = mPosition
+            PreferencesHelper(requireActivity()).saveInt(Constants.ADAPTER_POSITION, mPosition)
+            apply {
+                adapterView = mView
+            }
         })
 
     }
@@ -129,8 +134,8 @@ class PlaceFragment : DaggerFragment(), PlacesView {
             removeNonUserItems()
             addItemsToList(places.promotedList)
             addItemsToList(places.places)
+            showFavorite(places)
             notifyDataSetChanged()
-         //   showFavorite(places)
             filterList(places)
             filterFavorite(places)
 
@@ -142,14 +147,20 @@ class PlaceFragment : DaggerFragment(), PlacesView {
     }
 
     private fun showFavorite(places: PlaceData) {
-        if (places.favoriteIds.favoriteIds?.size != 0) {
-            for (i in 0 until places.favoriteIds.favoriteIds?.size!!) {
-                if (places.favoriteIds.favoriteIds!![i] == places.places[adapterPosition!!].id) {
+
+        for (position in places.favoriteIds.favoriteIds!!.indices) {
+            for (placeItem: PlaceItem in places.places) {
+                if (places.favoriteIds.favoriteIds!![position] == placeItem.id) {
                     adapterView?.visibility = View.VISIBLE
                     continue
                 }
+
             }
+
+
         }
+
+
     }
 
 

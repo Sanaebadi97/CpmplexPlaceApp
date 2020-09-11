@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.collection.SparseArrayCompat
 import androidx.recyclerview.widget.RecyclerView
 import info.sanaebadi.domain.model.base.ViewType
+import info.sanaebadi.domain.model.place.PlaceData
 import info.sanaebadi.domain.model.place.favorite.FavoriteListItem
 import info.sanaebadi.domain.model.place.places.PlaceItem
 import info.sanaebadi.domain.model.place.promoted.PromotedItem
