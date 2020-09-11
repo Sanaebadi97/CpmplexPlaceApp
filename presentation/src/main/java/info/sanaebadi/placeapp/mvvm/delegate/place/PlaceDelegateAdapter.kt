@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import info.sanaebadi.domain.model.base.ViewType
-import info.sanaebadi.domain.model.place.favorite.FavoriteListItem
 import info.sanaebadi.domain.model.place.places.PlaceItem
 import info.sanaebadi.domain.model.place.promoted.PromotedItem
 import info.sanaebadi.placeapp.databinding.PlaceItemBinding
@@ -44,9 +43,7 @@ class PlaceDelegateAdapter(
             placeItemBinding.textPlaceTitle.text = place.title
             placeItemBinding.textPlaceShortAddress.text = place.shortAddress
 
-            getFavView(
-                placeItemBinding.imageFavorite, adapterPosition
-            )
+
 
             setOnClickListener {
                 listener(
@@ -64,7 +61,11 @@ class PlaceDelegateAdapter(
             }
 
 
+            getFavView(placeItemBinding.textFavorite, adapterPosition)
+
         }
+
+
 
     }
 

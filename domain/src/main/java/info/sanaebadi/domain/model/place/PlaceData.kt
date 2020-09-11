@@ -9,7 +9,7 @@ data class PlaceData(
     val promotedList: List<PromotedItem>,
     val places: List<PlaceItem>,
     val favoriteIds: FavoriteListItem
-):ViewType {
+) : ViewType {
     override fun getViewType(): Int {
         TODO("Not yet implemented")
     }

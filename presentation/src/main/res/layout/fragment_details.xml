@@ -57,18 +57,20 @@
             app:layout_constraintTop_toTopOf="@id/text_place_title"
             tools:text="3.5 " />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/image_favorite"
-            android:layout_width="@dimen/default_margin_double"
-            android:layout_height="@dimen/default_margin_double"
-            android:visibility="gone"
-            android:layout_marginStart="@dimen/default_margin_two_thirds"
-            android:fontFamily="@font/iransans_light"
-            app:layout_constraintStart_toStartOf="parent"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
             android:layout_marginTop="@dimen/default_margin_half"
+            android:layout_marginEnd="@dimen/default_margin_half"
+            android:fontFamily="@font/iransans_light"
+            android:text="@string/my_favorite"
+            android:textColor="@color/red"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_place_score"
-            app:layout_constraintTop_toTopOf="@id/text_place_short_address"
-            app:srcCompat="@drawable/ic_favorite" />
+            app:layout_constraintTop_toTopOf="@id/text_place_short_address" />
 
 
         <androidx.appcompat.widget.AppCompatImageView

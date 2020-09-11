@@ -7,4 +7,5 @@
     <string name="search">جستجو</string>
     <string name="favourite">فیلتر مورد علاقه</string>
     <string name="check_internet">خطا در دسترسی به سرور . اینترنت خود را بررسی کنید!</string>
+    <string name="my_favorite">مورد علاقه</string>
 </resources>

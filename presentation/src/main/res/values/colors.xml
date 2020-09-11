@@ -9,5 +9,6 @@
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#000000</color>
     <color name="thirdTextColor">#353232</color>
+    <color name="red">#850505</color>
 
 </resources>
