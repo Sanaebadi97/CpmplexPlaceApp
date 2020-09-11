@@ -148,6 +148,7 @@ class PlaceFragment : DaggerFragment(), PlacesView {
 
     private fun showFavorite(places: PlaceData) {
 
+        //todo: you can get favorite item with text in logcat
         for (position in places.favoriteIds.favoriteIds!!.indices) {
             for (placeItem: PlaceItem in places.places) {
                 if (places.favoriteIds.favoriteIds!![position] == placeItem.id) {
